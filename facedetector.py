@@ -30,18 +30,35 @@ class FaceSwap:
         except ValueError:
             return None
 
-    def extract_embedding(self, tensor: torch.Tensor):
-        to_pil = ToPILImage()
-        if tensor.dim() == 4:
-            tensor = tensor.squeeze(0)
-        image = to_pil(tensor.cpu())
-        face = self.get_one_face(np.array(image))
-        if face is not None:
-            embedding = face.embedding
-            if isinstance(embedding, np.ndarray):
-                embedding = torch.tensor(embedding)
-            return face.embedding
-        return None
+   def extract_embedding(self, tensor: torch.Tensor):
+       to_pil = ToPILImage()
+       if tensor.dim() == 4:
+           tensor = tensor.squeeze(0)
+       image = to_pil(tensor.cpu())
+       face = self.get_one_face(np.array(image))
+       if face is not None:
+           embedding = face.embedding
+           if isinstance(embedding, np.ndarray):
+               embedding = torch.tensor(embedding)
+           return face.embedding
+       return None
+    # def extract_embedding(self, tensor: torch.Tensor):
+    #     if tensor.dim() == 4:
+    #         tensor = tensor.squeeze(0)
+    
+    #     # detach()로 기울기 추적을 중단
+    #     face = self.get_one_face(tensor.permute(1, 2, 0).cpu().detach().numpy())  
+
+    #     if face is not None:
+    #         embedding = face.embedding
+
+    #         if isinstance(embedding, np.ndarray):
+    #             embedding = torch.tensor(embedding, device=tensor.device)
+
+    #         return embedding
+    #     return None
+
+
 
     def swap_face(self, target_face, source_face_embedding, temp_frame):
         class SourceFace:

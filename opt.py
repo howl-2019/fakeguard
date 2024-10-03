@@ -59,11 +59,11 @@ class PoisonGeneration(object):
         source_tensor.requires_grad_()
         target_tensor.requires_grad_()
 
-        target_tensor = target_tensor.half()
-        source_tensor = source_tensor.half()
+#target_tensor = target_tensor.half()
+#source_tensor = source_tensor.half()
 
-        with torch.no_grad():
-            target_latent = self.face_swapper.extract_embedding(target_tensor)
+#with torch.no_grad():
+        target_latent = self.face_swapper.extract_embedding(target_tensor)
 
         # Initialize modifier and set requires_grad=True
         modifier = torch.zeros_like(source_tensor, requires_grad=True)
@@ -75,26 +75,36 @@ class PoisonGeneration(object):
         for i in range(t_size):
             actual_step_size = step_size - (step_size - step_size / 100) / t_size * i
 
-            adv_tensor = torch.clamp(modifier + source_tensor, -1, 1)
+            adv_tensor = torch.clamp(modifier + source_tensor, -1, 1) # adv, modifier connect
             adv_latent = self.face_swapper.extract_embedding(adv_tensor)
             if isinstance(adv_latent, np.ndarray):
                 adv_latent = torch.tensor(adv_latent)
             if isinstance(target_latent, np.ndarray):
                 target_latent = torch.tensor(target_latent)
+            
+            adv_latent_new = adv_latent.clone().requires_grad_()
+            target_latent_new = target_latent.clone().requires_grad_()
 
-            print("adv: ", adv_latent.size())
-            print("tar: ", target_latent.size())
+#            print("adv: ", adv_latent_new.size(), adv_latent)
+#            print("tar: ", target_latent_new.size(), target_latent)
             # Calculate the loss
-            loss = torch.norm(adv_latent - target_latent)
+            with torch.enable_grad():
+                loss = (adv_latent_new - target_latent_new).norm()
 #loss = 0.5 * torch.abs(adv_latent - target_latent).sum() + 0.5 * torch.norm(adv_latent - target_latent)
 #loss = torch.nn.functional.kl_div(adv_latent.log_softmax(dim=-1), target_latent, reduction='batchmean')            
 #loss = torch.nn.functional.mse_loss(adv_latent, target_latent)
 #loss = 1 - torch.nn.functional.cosine_similarity(adv_latent, target_latent, dim=0).mean()
-            tot_loss = loss.sum()
-            if not tot_loss.requires_grad:
-                tot_loss.requires_grad_()
+                tot_loss = loss.sum()
+            print("loss: ", loss, tot_loss.item())
+            print("Total Loss requires_grad:", tot_loss.requires_grad)
+            print("adv requires_grad:", adv_latent_new.requires_grad)
+            print("target requires_grad:", target_latent_new.requires_grad)
+            print("modifier require_grad", modifier.requires_grad)
 
-            grad = torch.autograd.grad(tot_loss, modifier, allow_unused=True)[0]
+            if not tot_loss.requires_grad:
+                tot_loss = tot_loss.requires_grad_()
+
+            grad = torch.autograd.grad(tot_loss, modifier, allow_unused=False)[0]
             if grad is None:
                 print("skip")
                 continue

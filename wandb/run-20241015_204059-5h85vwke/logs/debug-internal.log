@@ -1,0 +1,18 @@
+{"time":"2024-10-15T20:40:59.245619412+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-15T20:40:59.245644568+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241015_204059-5h85vwke/logs/debug-core.log"}
+{"time":"2024-10-15T20:40:59.250427894+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-15T20:40:59.255182288+09:00","level":"INFO","msg":"created new stream","id":"5h85vwke"}
+{"time":"2024-10-15T20:40:59.255221688+09:00","level":"INFO","msg":"stream: started","id":"5h85vwke"}
+{"time":"2024-10-15T20:40:59.255239138+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"5h85vwke"}}
+{"time":"2024-10-15T20:40:59.255260629+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"5h85vwke"}}
+{"time":"2024-10-15T20:40:59.255286968+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"5h85vwke"}}
+{"time":"2024-10-15T20:40:59.553807351+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-15T20:40:59.554709809+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-15T20:41:07.457801659+09:00","level":"INFO","msg":"stream: closing","id":"5h85vwke"}
+{"time":"2024-10-15T20:41:07.457834707+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-15T20:41:07.462338263+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-15T20:41:08.325461065+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-15T20:41:08.540700136+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"5h85vwke"}}
+{"time":"2024-10-15T20:41:08.540753136+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"5h85vwke"}}
+{"time":"2024-10-15T20:41:08.540765683+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"5h85vwke"}}
+{"time":"2024-10-15T20:41:08.540818083+09:00","level":"INFO","msg":"stream: closed","id":"5h85vwke"}

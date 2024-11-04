@@ -1,0 +1,18 @@
+{"time":"2024-10-23T15:20:24.908457358+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-23T15:20:24.908477707+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241023_152024-9544kudi/logs/debug-core.log"}
+{"time":"2024-10-23T15:20:24.957379933+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-23T15:20:24.962289691+09:00","level":"INFO","msg":"created new stream","id":"9544kudi"}
+{"time":"2024-10-23T15:20:24.96231979+09:00","level":"INFO","msg":"stream: started","id":"9544kudi"}
+{"time":"2024-10-23T15:20:24.962337176+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"9544kudi"}}
+{"time":"2024-10-23T15:20:24.962331145+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"9544kudi"}}
+{"time":"2024-10-23T15:20:24.962355366+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"9544kudi"}}
+{"time":"2024-10-23T15:20:25.287889463+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-23T15:20:25.290912256+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-23T15:45:00.64360208+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-23T15:45:00.648488814+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-23T15:45:02.505012673+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-23T15:45:03.753955428+09:00","level":"INFO","msg":"stream: closing","id":"9544kudi"}
+{"time":"2024-10-23T15:45:03.753971097+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"9544kudi"}}
+{"time":"2024-10-23T15:45:03.754000013+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"9544kudi"}}
+{"time":"2024-10-23T15:45:03.754060057+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"9544kudi"}}
+{"time":"2024-10-23T15:45:03.754070148+09:00","level":"INFO","msg":"stream: closed","id":"9544kudi"}

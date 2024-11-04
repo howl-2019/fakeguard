@@ -1,0 +1,18 @@
+{"time":"2024-10-29T15:24:21.097136614+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-29T15:24:21.09716201+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241029_152421-eolyehle/logs/debug-core.log"}
+{"time":"2024-10-29T15:24:21.11272684+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-29T15:24:21.117557077+09:00","level":"INFO","msg":"created new stream","id":"eolyehle"}
+{"time":"2024-10-29T15:24:21.117609706+09:00","level":"INFO","msg":"stream: started","id":"eolyehle"}
+{"time":"2024-10-29T15:24:21.117661652+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"eolyehle"}}
+{"time":"2024-10-29T15:24:21.117642352+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"eolyehle"}}
+{"time":"2024-10-29T15:24:21.117632177+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"eolyehle"}}
+{"time":"2024-10-29T15:24:21.460626239+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-29T15:24:21.461646055+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-29T15:25:33.266079234+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-29T15:25:33.268444776+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-29T15:25:34.365543602+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-29T15:25:35.622665176+09:00","level":"INFO","msg":"stream: closing","id":"eolyehle"}
+{"time":"2024-10-29T15:25:35.622684372+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"eolyehle"}}
+{"time":"2024-10-29T15:25:35.622704501+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"eolyehle"}}
+{"time":"2024-10-29T15:25:35.622702136+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"eolyehle"}}
+{"time":"2024-10-29T15:25:35.622789845+09:00","level":"INFO","msg":"stream: closed","id":"eolyehle"}

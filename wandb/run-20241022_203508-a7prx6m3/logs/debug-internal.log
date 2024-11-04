@@ -1,0 +1,18 @@
+{"time":"2024-10-22T20:35:08.916826748+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-22T20:35:08.916844239+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241022_203508-a7prx6m3/logs/debug-core.log"}
+{"time":"2024-10-22T20:35:08.922432911+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-22T20:35:08.92741316+09:00","level":"INFO","msg":"created new stream","id":"a7prx6m3"}
+{"time":"2024-10-22T20:35:08.927455057+09:00","level":"INFO","msg":"stream: started","id":"a7prx6m3"}
+{"time":"2024-10-22T20:35:08.927467481+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"a7prx6m3"}}
+{"time":"2024-10-22T20:35:08.927489801+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"a7prx6m3"}}
+{"time":"2024-10-22T20:35:08.927531025+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"a7prx6m3"}}
+{"time":"2024-10-22T20:35:09.270552405+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-22T20:35:09.271411126+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-22T20:54:02.946954381+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-22T20:54:02.949555172+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-22T20:54:04.012478168+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-22T20:54:05.266028665+09:00","level":"INFO","msg":"stream: closing","id":"a7prx6m3"}
+{"time":"2024-10-22T20:54:05.266054429+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"a7prx6m3"}}
+{"time":"2024-10-22T20:54:05.26608758+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"a7prx6m3"}}
+{"time":"2024-10-22T20:54:05.266120722+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"a7prx6m3"}}
+{"time":"2024-10-22T20:54:05.266146112+09:00","level":"INFO","msg":"stream: closed","id":"a7prx6m3"}

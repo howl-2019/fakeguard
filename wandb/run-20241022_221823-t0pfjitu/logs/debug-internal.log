@@ -1,0 +1,18 @@
+{"time":"2024-10-22T22:18:23.194971165+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-22T22:18:23.194988694+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241022_221823-t0pfjitu/logs/debug-core.log"}
+{"time":"2024-10-22T22:18:23.200157018+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-22T22:18:23.204900234+09:00","level":"INFO","msg":"created new stream","id":"t0pfjitu"}
+{"time":"2024-10-22T22:18:23.204937288+09:00","level":"INFO","msg":"stream: started","id":"t0pfjitu"}
+{"time":"2024-10-22T22:18:23.204949055+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"t0pfjitu"}}
+{"time":"2024-10-22T22:18:23.204959018+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"t0pfjitu"}}
+{"time":"2024-10-22T22:18:23.204974286+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"t0pfjitu"}}
+{"time":"2024-10-22T22:18:23.462549876+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-22T22:18:23.463663254+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-22T22:19:01.558718696+09:00","level":"INFO","msg":"stream: closing","id":"t0pfjitu"}
+{"time":"2024-10-22T22:19:01.558745574+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-22T22:19:01.562345685+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-22T22:19:02.43319842+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-22T22:19:02.675476403+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"t0pfjitu"}}
+{"time":"2024-10-22T22:19:02.675532584+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"t0pfjitu"}}
+{"time":"2024-10-22T22:19:02.675596285+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"t0pfjitu"}}
+{"time":"2024-10-22T22:19:02.675606326+09:00","level":"INFO","msg":"stream: closed","id":"t0pfjitu"}

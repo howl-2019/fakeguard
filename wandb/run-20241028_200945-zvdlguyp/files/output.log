@@ -1,0 +1,52 @@
+/home/user/anaconda3/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py:69: UserWarning: Specified provider 'CUDAExecutionProvider' is not in available provider names.Available providers: 'AzureExecutionProvider, CPUExecutionProvider'
+  warnings.warn(
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /home/user/.insightface/models/buffalo_l/1k3d68.onnx landmark_3d_68 ['None', 3, 192, 192] 0.0 1.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /home/user/.insightface/models/buffalo_l/2d106det.onnx landmark_2d_106 ['None', 3, 192, 192] 0.0 1.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /home/user/.insightface/models/buffalo_l/det_10g.onnx detection [1, 3, '?', '?'] 127.5 128.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /home/user/.insightface/models/buffalo_l/genderage.onnx genderage ['None', 3, 96, 96] 0.0 1.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /home/user/.insightface/models/buffalo_l/w600k_r50.onnx recognition ['None', 3, 112, 112] 127.5 127.5
+set det-size: (320, 320)
+/home/user/bob/fakeguard/guard.py:264: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  netArc_checkpoint = torch.load(netArc_checkpoint, map_location=torch.device("cpu"))
+cuda:0
+cuda:0
+/home/user/anaconda3/lib/python3.11/site-packages/insightface/utils/transform.py:68: FutureWarning: `rcond` parameter will change to the default of machine precision times ``max(M, N)`` where M and N are the input matrix dimensions.
+To use the future default and silence this warning we advise to pass `rcond=None`, to keep using the old, explicitly pass `rcond=-1`.
+  P = np.linalg.lstsq(X_homo, Y)[0].T # Affine matrix. 3 x 4
+:::::bbox:::::: [1684, 729, 1876, 940]
+Cropped faces saved.
+# Iter: 0	Loss: 31.740
+# Iter: 50	Loss: 21.107
+# Iter: 100	Loss: 18.407
+# Iter: 150	Loss: 17.168
+# Iter: 200	Loss: 16.447
+# Iter: 250	Loss: 16.038
+# Iter: 300	Loss: 15.696
+# Iter: 350	Loss: 15.464
+# Iter: 400	Loss: 15.311
+# Iter: 450	Loss: 15.183
+# Iter: 500	Loss: 15.071
+# Iter: 550	Loss: 14.981
+# Iter: 600	Loss: 14.877
+# Iter: 650	Loss: 14.818
+# Iter: 700	Loss: 14.780
+# Iter: 750	Loss: 14.745
+# Iter: 800	Loss: 14.675
+# Iter: 850	Loss: 14.629
+# Iter: 900	Loss: 14.572
+# Iter: 950	Loss: 14.542
+# Iter: 1000	Loss: 14.515
+# Iter: 1050	Loss: 14.488
+# Iter: 1100	Loss: 14.476
+# Iter: 1150	Loss: 14.456
+# Iter: 1200	Loss: 14.434
+# Iter: 1250	Loss: 14.434
+# Iter: 1300	Loss: 14.399
+# Iter: 1350	Loss: 14.396
+# Iter: 1400	Loss: 14.368
+# Iter: 1450	Loss: 14.357

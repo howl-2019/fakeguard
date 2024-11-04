@@ -1,0 +1,18 @@
+{"time":"2024-10-12T15:26:51.045969203+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-12T15:26:51.045991655+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241012_152651-xukns9a5/logs/debug-core.log"}
+{"time":"2024-10-12T15:26:51.052668677+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-12T15:26:51.061854678+09:00","level":"INFO","msg":"created new stream","id":"xukns9a5"}
+{"time":"2024-10-12T15:26:51.061907978+09:00","level":"INFO","msg":"stream: started","id":"xukns9a5"}
+{"time":"2024-10-12T15:26:51.061933426+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"xukns9a5"}}
+{"time":"2024-10-12T15:26:51.061963416+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"xukns9a5"}}
+{"time":"2024-10-12T15:26:51.061942298+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"xukns9a5"}}
+{"time":"2024-10-12T15:26:51.367601265+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-12T15:26:51.370528005+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-12T15:28:41.089331927+09:00","level":"INFO","msg":"stream: closing","id":"xukns9a5"}
+{"time":"2024-10-12T15:28:41.089358663+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-12T15:28:41.096809275+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-12T15:28:41.923908885+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-12T15:28:42.15146463+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"xukns9a5"}}
+{"time":"2024-10-12T15:28:42.15148935+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"xukns9a5"}}
+{"time":"2024-10-12T15:28:42.151520305+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"xukns9a5"}}
+{"time":"2024-10-12T15:28:42.151577329+09:00","level":"INFO","msg":"stream: closed","id":"xukns9a5"}

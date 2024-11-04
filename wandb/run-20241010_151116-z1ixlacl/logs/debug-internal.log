@@ -1,0 +1,18 @@
+{"time":"2024-10-10T15:11:16.162204499+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-10T15:11:16.162222422+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241010_151116-z1ixlacl/logs/debug-core.log"}
+{"time":"2024-10-10T15:11:16.166977802+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-10T15:11:16.171708107+09:00","level":"INFO","msg":"created new stream","id":"z1ixlacl"}
+{"time":"2024-10-10T15:11:16.171743174+09:00","level":"INFO","msg":"stream: started","id":"z1ixlacl"}
+{"time":"2024-10-10T15:11:16.171756891+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"z1ixlacl"}}
+{"time":"2024-10-10T15:11:16.17178455+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"z1ixlacl"}}
+{"time":"2024-10-10T15:11:16.17181003+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"z1ixlacl"}}
+{"time":"2024-10-10T15:11:17.034705466+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-10T15:11:17.035625687+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-10T15:14:37.21688633+09:00","level":"INFO","msg":"stream: closing","id":"z1ixlacl"}
+{"time":"2024-10-10T15:14:37.216914011+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-10T15:14:37.220132987+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-10T15:14:38.015821738+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-10T15:14:38.236875864+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"z1ixlacl"}}
+{"time":"2024-10-10T15:14:38.236915919+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"z1ixlacl"}}
+{"time":"2024-10-10T15:14:38.236898718+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"z1ixlacl"}}
+{"time":"2024-10-10T15:14:38.236990334+09:00","level":"INFO","msg":"stream: closed","id":"z1ixlacl"}

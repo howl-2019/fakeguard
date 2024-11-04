@@ -1,0 +1,18 @@
+{"time":"2024-10-10T21:23:02.678125195+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-10T21:23:02.678154296+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241010_212302-36vayyno/logs/debug-core.log"}
+{"time":"2024-10-10T21:23:02.683405048+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-10T21:23:02.707631437+09:00","level":"INFO","msg":"created new stream","id":"36vayyno"}
+{"time":"2024-10-10T21:23:02.707658486+09:00","level":"INFO","msg":"stream: started","id":"36vayyno"}
+{"time":"2024-10-10T21:23:02.707705589+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"36vayyno"}}
+{"time":"2024-10-10T21:23:02.707822038+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"36vayyno"}}
+{"time":"2024-10-10T21:23:02.708010804+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"36vayyno"}}
+{"time":"2024-10-10T21:23:02.971462384+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-10T21:23:02.973540556+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-10T21:27:26.737199502+09:00","level":"INFO","msg":"stream: closing","id":"36vayyno"}
+{"time":"2024-10-10T21:27:26.737226146+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-10T21:27:26.746195103+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-10T21:27:27.560527884+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-10T21:27:27.793041906+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"36vayyno"}}
+{"time":"2024-10-10T21:27:27.793088498+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"36vayyno"}}
+{"time":"2024-10-10T21:27:27.793350687+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"36vayyno"}}
+{"time":"2024-10-10T21:27:27.793620061+09:00","level":"INFO","msg":"stream: closed","id":"36vayyno"}

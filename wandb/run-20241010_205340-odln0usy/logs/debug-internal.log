@@ -1,0 +1,18 @@
+{"time":"2024-10-10T20:53:40.117795709+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-10T20:53:40.11782117+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241010_205340-odln0usy/logs/debug-core.log"}
+{"time":"2024-10-10T20:53:40.123270765+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-10T20:53:40.128226636+09:00","level":"INFO","msg":"created new stream","id":"odln0usy"}
+{"time":"2024-10-10T20:53:40.128261247+09:00","level":"INFO","msg":"stream: started","id":"odln0usy"}
+{"time":"2024-10-10T20:53:40.128295583+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"odln0usy"}}
+{"time":"2024-10-10T20:53:40.128276414+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"odln0usy"}}
+{"time":"2024-10-10T20:53:40.128317829+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"odln0usy"}}
+{"time":"2024-10-10T20:53:40.38033905+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-10T20:53:40.381232731+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-10T21:19:23.762353467+09:00","level":"INFO","msg":"stream: closing","id":"odln0usy"}
+{"time":"2024-10-10T21:19:23.762382944+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-10T21:19:23.776845241+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-10T21:19:24.583495602+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-10T21:19:24.807985027+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"odln0usy"}}
+{"time":"2024-10-10T21:19:24.808034898+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"odln0usy"}}
+{"time":"2024-10-10T21:19:24.808091884+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"odln0usy"}}
+{"time":"2024-10-10T21:19:24.808101834+09:00","level":"INFO","msg":"stream: closed","id":"odln0usy"}

@@ -1,0 +1,18 @@
+{"time":"2024-10-16T17:27:00.329601147+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-16T17:27:00.329631533+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241016_172700-i5cf152b/logs/debug-core.log"}
+{"time":"2024-10-16T17:27:00.333542815+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-16T17:27:00.347880887+09:00","level":"INFO","msg":"created new stream","id":"i5cf152b"}
+{"time":"2024-10-16T17:27:00.347910905+09:00","level":"INFO","msg":"stream: started","id":"i5cf152b"}
+{"time":"2024-10-16T17:27:00.347939239+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"i5cf152b"}}
+{"time":"2024-10-16T17:27:00.348032907+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"i5cf152b"}}
+{"time":"2024-10-16T17:27:00.34819049+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"i5cf152b"}}
+{"time":"2024-10-16T17:27:00.67820347+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-16T17:27:00.682148664+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-16T20:48:44.10297242+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-16T20:48:44.105099747+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-16T20:48:45.083816706+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-16T20:48:46.32005017+09:00","level":"INFO","msg":"stream: closing","id":"i5cf152b"}
+{"time":"2024-10-16T20:48:46.320073485+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"i5cf152b"}}
+{"time":"2024-10-16T20:48:46.320095092+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"i5cf152b"}}
+{"time":"2024-10-16T20:48:46.320103615+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"i5cf152b"}}
+{"time":"2024-10-16T20:48:46.320268926+09:00","level":"INFO","msg":"stream: closed","id":"i5cf152b"}

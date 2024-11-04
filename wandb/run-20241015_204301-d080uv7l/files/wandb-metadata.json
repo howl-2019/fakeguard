@@ -1,0 +1,43 @@
+{
+  "os":  "Linux-6.8.0-45-generic-x86_64-with-glibc2.35",
+  "python":  "3.11.7",
+  "startedAt":  "2024-10-15T11:43:01.021859Z",
+  "program":  "/home/user/bob/fakeguard/guard.py",
+  "codePath":  "guard.py",
+  "git":  {
+    "remote":  "https://github.com/howl-2019/fakeguard.git",
+    "commit":  "a6f935db0f5bd85ef65916d41e0adb3f784069aa"
+  },
+  "email":  "skatjdehddms@gmail.com",
+  "root":  "/home/user/bob/fakeguard",
+  "host":  "user-Z370M-D3H",
+  "username":  "user",
+  "executable":  "/home/user/anaconda3/bin/python",
+  "codePathLocal":  "guard.py",
+  "cpu_count":  6,
+  "cpu_count_logical":  12,
+  "gpu":  "[NVIDIA GeForce RTX 2060]",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "250903556096",
+      "used":  "230958768128"
+    }
+  },
+  "memory":  {
+    "total":  "42003394560"
+  },
+  "cpu":  {
+    "count":  6,
+    "countLogical":  12
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA GeForce RTX 2060",
+      "memoryTotal":  "6442450944",
+      "cudaCores":  1920,
+      "architecture":  "Turing"
+    }
+  ],
+  "cudaVersion":  "12.2"
+}

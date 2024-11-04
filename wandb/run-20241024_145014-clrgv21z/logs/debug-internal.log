@@ -1,0 +1,18 @@
+{"time":"2024-10-24T14:50:14.808211545+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-24T14:50:14.808234074+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241024_145014-clrgv21z/logs/debug-core.log"}
+{"time":"2024-10-24T14:50:14.816415437+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-24T14:50:14.821618162+09:00","level":"INFO","msg":"created new stream","id":"clrgv21z"}
+{"time":"2024-10-24T14:50:14.82165681+09:00","level":"INFO","msg":"stream: started","id":"clrgv21z"}
+{"time":"2024-10-24T14:50:14.821693749+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"clrgv21z"}}
+{"time":"2024-10-24T14:50:14.821717549+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"clrgv21z"}}
+{"time":"2024-10-24T14:50:14.821724665+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"clrgv21z"}}
+{"time":"2024-10-24T14:50:15.277520637+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-24T14:50:15.278902283+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-24T15:15:37.422430824+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-24T15:15:37.424821744+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-24T15:15:38.552670665+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-24T15:15:39.823001388+09:00","level":"INFO","msg":"stream: closing","id":"clrgv21z"}
+{"time":"2024-10-24T15:15:39.823022447+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"clrgv21z"}}
+{"time":"2024-10-24T15:15:39.823041741+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"clrgv21z"}}
+{"time":"2024-10-24T15:15:39.823038594+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"clrgv21z"}}
+{"time":"2024-10-24T15:15:39.823127068+09:00","level":"INFO","msg":"stream: closed","id":"clrgv21z"}

@@ -1,0 +1,19 @@
+{"time":"2024-10-28T16:28:16.789612634+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-28T16:28:16.789635352+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241028_162816-4jvdb9yi/logs/debug-core.log"}
+{"time":"2024-10-28T16:28:16.793879283+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-28T16:28:16.799146783+09:00","level":"INFO","msg":"created new stream","id":"4jvdb9yi"}
+{"time":"2024-10-28T16:28:16.799187793+09:00","level":"INFO","msg":"stream: started","id":"4jvdb9yi"}
+{"time":"2024-10-28T16:28:16.799201589+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"4jvdb9yi"}}
+{"time":"2024-10-28T16:28:16.799220035+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"4jvdb9yi"}}
+{"time":"2024-10-28T16:28:16.799216219+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"4jvdb9yi"}}
+{"time":"2024-10-28T16:28:17.125921162+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-28T16:28:17.127306258+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-28T16:30:23.059806826+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-28T16:30:23.061997499+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-28T16:30:25.986541543+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-28T16:30:27.282851157+09:00","level":"INFO","msg":"stream: closing","id":"4jvdb9yi"}
+{"time":"2024-10-28T16:30:27.28287278+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"4jvdb9yi"}}
+{"time":"2024-10-28T16:30:27.2829075+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"4jvdb9yi"}}
+{"time":"2024-10-28T16:30:27.282949031+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"4jvdb9yi"}}
+{"time":"2024-10-28T16:30:27.282979502+09:00","level":"INFO","msg":"stream: closed","id":"4jvdb9yi"}
+{"time":"2024-10-28T16:30:28.062728141+09:00","level":"ERROR","msg":"monitor: gpu: timeout waiting for process to exit"}

@@ -1,0 +1,18 @@
+{"time":"2024-10-23T14:20:52.79405464+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-23T14:20:52.794073769+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241023_142052-mglmonxs/logs/debug-core.log"}
+{"time":"2024-10-23T14:20:52.798987816+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-23T14:20:52.80391682+09:00","level":"INFO","msg":"created new stream","id":"mglmonxs"}
+{"time":"2024-10-23T14:20:52.803944471+09:00","level":"INFO","msg":"stream: started","id":"mglmonxs"}
+{"time":"2024-10-23T14:20:52.80395326+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"mglmonxs"}}
+{"time":"2024-10-23T14:20:52.803963781+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"mglmonxs"}}
+{"time":"2024-10-23T14:20:52.803977528+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"mglmonxs"}}
+{"time":"2024-10-23T14:20:53.243410668+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-23T14:20:53.24428369+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-23T14:45:39.079140237+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-23T14:45:39.081921317+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-23T14:45:40.408863702+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-23T14:45:41.613073112+09:00","level":"INFO","msg":"stream: closing","id":"mglmonxs"}
+{"time":"2024-10-23T14:45:41.613093723+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"mglmonxs"}}
+{"time":"2024-10-23T14:45:41.613122919+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"mglmonxs"}}
+{"time":"2024-10-23T14:45:41.613207661+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"mglmonxs"}}
+{"time":"2024-10-23T14:45:41.613219348+09:00","level":"INFO","msg":"stream: closed","id":"mglmonxs"}

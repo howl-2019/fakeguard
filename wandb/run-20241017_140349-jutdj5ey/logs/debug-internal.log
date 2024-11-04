@@ -1,0 +1,18 @@
+{"time":"2024-10-17T14:03:49.996278593+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-17T14:03:49.996302008+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241017_140349-jutdj5ey/logs/debug-core.log"}
+{"time":"2024-10-17T14:03:50.046817673+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-17T14:03:50.051589722+09:00","level":"INFO","msg":"created new stream","id":"jutdj5ey"}
+{"time":"2024-10-17T14:03:50.051637375+09:00","level":"INFO","msg":"stream: started","id":"jutdj5ey"}
+{"time":"2024-10-17T14:03:50.051624938+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"jutdj5ey"}}
+{"time":"2024-10-17T14:03:50.051668113+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"jutdj5ey"}}
+{"time":"2024-10-17T14:03:50.051683653+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"jutdj5ey"}}
+{"time":"2024-10-17T14:03:50.402810955+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-17T14:03:50.403774496+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-17T14:03:55.08878261+09:00","level":"INFO","msg":"stream: closing","id":"jutdj5ey"}
+{"time":"2024-10-17T14:03:55.088812565+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-17T14:03:55.094414444+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-17T14:03:55.945643469+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-17T14:03:56.178074229+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"jutdj5ey"}}
+{"time":"2024-10-17T14:03:56.178135298+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"jutdj5ey"}}
+{"time":"2024-10-17T14:03:56.178133904+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"jutdj5ey"}}
+{"time":"2024-10-17T14:03:56.178195933+09:00","level":"INFO","msg":"stream: closed","id":"jutdj5ey"}

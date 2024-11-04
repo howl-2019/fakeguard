@@ -1,0 +1,18 @@
+{"time":"2024-10-10T22:56:28.819490058+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-10T22:56:28.819510889+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241010_225628-z9vmag54/logs/debug-core.log"}
+{"time":"2024-10-10T22:56:28.82411936+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-10T22:56:28.82917215+09:00","level":"INFO","msg":"created new stream","id":"z9vmag54"}
+{"time":"2024-10-10T22:56:28.829201031+09:00","level":"INFO","msg":"stream: started","id":"z9vmag54"}
+{"time":"2024-10-10T22:56:28.829228624+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"z9vmag54"}}
+{"time":"2024-10-10T22:56:28.829210502+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"z9vmag54"}}
+{"time":"2024-10-10T22:56:28.829215437+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"z9vmag54"}}
+{"time":"2024-10-10T22:56:29.179737946+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-10T22:56:29.180992994+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-10T22:57:05.038803173+09:00","level":"INFO","msg":"stream: closing","id":"z9vmag54"}
+{"time":"2024-10-10T22:57:05.038827731+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-10T22:57:05.041827085+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-10T22:57:05.855271605+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-10T22:57:06.145516902+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"z9vmag54"}}
+{"time":"2024-10-10T22:57:06.145552392+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"z9vmag54"}}
+{"time":"2024-10-10T22:57:06.145579286+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"z9vmag54"}}
+{"time":"2024-10-10T22:57:06.145634918+09:00","level":"INFO","msg":"stream: closed","id":"z9vmag54"}

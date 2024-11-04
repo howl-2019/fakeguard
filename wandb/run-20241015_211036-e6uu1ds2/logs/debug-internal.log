@@ -1,0 +1,18 @@
+{"time":"2024-10-15T21:10:36.127571294+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-15T21:10:36.127599625+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241015_211036-e6uu1ds2/logs/debug-core.log"}
+{"time":"2024-10-15T21:10:36.131371764+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-15T21:10:36.136216661+09:00","level":"INFO","msg":"created new stream","id":"e6uu1ds2"}
+{"time":"2024-10-15T21:10:36.136255559+09:00","level":"INFO","msg":"stream: started","id":"e6uu1ds2"}
+{"time":"2024-10-15T21:10:36.136266448+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"e6uu1ds2"}}
+{"time":"2024-10-15T21:10:36.136276897+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"e6uu1ds2"}}
+{"time":"2024-10-15T21:10:36.136313344+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"e6uu1ds2"}}
+{"time":"2024-10-15T21:10:36.419814678+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-15T21:10:36.421488198+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-15T21:34:16.575252747+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-15T21:34:16.578082402+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-15T21:34:17.593144129+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-15T21:34:18.835282709+09:00","level":"INFO","msg":"stream: closing","id":"e6uu1ds2"}
+{"time":"2024-10-15T21:34:18.835306141+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"e6uu1ds2"}}
+{"time":"2024-10-15T21:34:18.835334856+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"e6uu1ds2"}}
+{"time":"2024-10-15T21:34:18.835349214+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"e6uu1ds2"}}
+{"time":"2024-10-15T21:34:18.835397934+09:00","level":"INFO","msg":"stream: closed","id":"e6uu1ds2"}

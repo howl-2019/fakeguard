@@ -1,0 +1,14 @@
+{"time":"2024-10-10T15:06:17.076914488+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-10T15:06:17.076934151+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241010_150617-2n44lpv8/logs/debug-core.log"}
+{"time":"2024-10-10T15:06:17.169293778+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-10T15:06:17.174220868+09:00","level":"INFO","msg":"created new stream","id":"2n44lpv8"}
+{"time":"2024-10-10T15:06:17.174253165+09:00","level":"INFO","msg":"stream: started","id":"2n44lpv8"}
+{"time":"2024-10-10T15:06:17.174272076+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"2n44lpv8"}}
+{"time":"2024-10-10T15:06:17.174262364+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"2n44lpv8"}}
+{"time":"2024-10-10T15:06:17.174280259+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"2n44lpv8"}}
+{"time":"2024-10-10T15:06:17.700341429+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-10T15:06:17.701246638+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-10T15:10:51.703450119+09:00","level":"INFO","msg":"stream: closing","id":"2n44lpv8"}
+{"time":"2024-10-10T15:10:51.703479401+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-10T15:10:51.706320603+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-10T15:10:56.706160996+09:00","level":"ERROR","msg":"monitor: gpu: timeout waiting for process to exit"}

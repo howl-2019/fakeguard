@@ -1,0 +1,18 @@
+{"time":"2024-10-28T16:27:20.677215832+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-28T16:27:20.67723969+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241028_162720-ram7pi8s/logs/debug-core.log"}
+{"time":"2024-10-28T16:27:20.708340032+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-28T16:27:20.713568644+09:00","level":"INFO","msg":"created new stream","id":"ram7pi8s"}
+{"time":"2024-10-28T16:27:20.713611842+09:00","level":"INFO","msg":"stream: started","id":"ram7pi8s"}
+{"time":"2024-10-28T16:27:20.7136287+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"ram7pi8s"}}
+{"time":"2024-10-28T16:27:20.713621542+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"ram7pi8s"}}
+{"time":"2024-10-28T16:27:20.7136443+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"ram7pi8s"}}
+{"time":"2024-10-28T16:27:21.220368962+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-28T16:27:21.221263628+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-28T16:27:26.669218548+09:00","level":"INFO","msg":"stream: closing","id":"ram7pi8s"}
+{"time":"2024-10-28T16:27:26.669246681+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-28T16:27:26.671446271+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-28T16:27:29.360056837+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-28T16:27:29.63780455+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"ram7pi8s"}}
+{"time":"2024-10-28T16:27:29.637861701+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"ram7pi8s"}}
+{"time":"2024-10-28T16:27:29.637853465+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"ram7pi8s"}}
+{"time":"2024-10-28T16:27:29.637944186+09:00","level":"INFO","msg":"stream: closed","id":"ram7pi8s"}

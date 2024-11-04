@@ -1,0 +1,48 @@
+/home/user/anaconda3/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py:69: UserWarning: Specified provider 'CUDAExecutionProvider' is not in available provider names.Available providers: 'AzureExecutionProvider, CPUExecutionProvider'
+  warnings.warn(
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /home/user/.insightface/models/buffalo_l/1k3d68.onnx landmark_3d_68 ['None', 3, 192, 192] 0.0 1.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /home/user/.insightface/models/buffalo_l/2d106det.onnx landmark_2d_106 ['None', 3, 192, 192] 0.0 1.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /home/user/.insightface/models/buffalo_l/det_10g.onnx detection [1, 3, '?', '?'] 127.5 128.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /home/user/.insightface/models/buffalo_l/genderage.onnx genderage ['None', 3, 96, 96] 0.0 1.0
+Applied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}
+find model: /home/user/.insightface/models/buffalo_l/w600k_r50.onnx recognition ['None', 3, 112, 112] 127.5 127.5
+set det-size: (320, 320)
+/home/user/anaconda3/lib/python3.11/site-packages/insightface/utils/transform.py:68: FutureWarning: `rcond` parameter will change to the default of machine precision times ``max(M, N)`` where M and N are the input matrix dimensions.
+To use the future default and silence this warning we advise to pass `rcond=None`, to keep using the old, explicitly pass `rcond=-1`.
+  P = np.linalg.lstsq(X_homo, Y)[0].T # Affine matrix. 3 x 4
+:::::bbox:::::: [1684, 729, 1876, 940]
+Cropped faces saved.
+# Iter: 0	Loss: -4.146
+# Iter: 50	Loss: -15.361
+# Iter: 100	Loss: -16.800
+# Iter: 150	Loss: -17.473
+# Iter: 200	Loss: -17.774
+# Iter: 250	Loss: -18.195
+# Iter: 300	Loss: -18.511
+# Iter: 350	Loss: -18.611
+# Iter: 400	Loss: -18.771
+# Iter: 450	Loss: -18.864
+# Iter: 500	Loss: -18.900
+# Iter: 550	Loss: -19.011
+# Iter: 600	Loss: -19.071
+# Iter: 650	Loss: -19.118
+# Iter: 700	Loss: -19.161
+# Iter: 750	Loss: -19.181
+# Iter: 800	Loss: -19.181
+# Iter: 850	Loss: -19.188
+# Iter: 900	Loss: -19.308
+# Iter: 950	Loss: -19.326
+# Iter: 1000	Loss: -19.399
+# Iter: 1050	Loss: -19.407
+# Iter: 1100	Loss: -19.458
+# Iter: 1150	Loss: -19.522
+# Iter: 1200	Loss: -19.499
+# Iter: 1250	Loss: -19.539
+# Iter: 1300	Loss: -19.547
+# Iter: 1350	Loss: -19.549
+# Iter: 1400	Loss: -19.617
+# Iter: 1450	Loss: -19.613

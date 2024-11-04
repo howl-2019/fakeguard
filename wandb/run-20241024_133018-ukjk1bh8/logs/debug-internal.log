@@ -1,0 +1,18 @@
+{"time":"2024-10-24T13:30:18.774913692+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-24T13:30:18.774935796+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241024_133018-ukjk1bh8/logs/debug-core.log"}
+{"time":"2024-10-24T13:30:18.819145082+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-24T13:30:18.823939207+09:00","level":"INFO","msg":"created new stream","id":"ukjk1bh8"}
+{"time":"2024-10-24T13:30:18.823974258+09:00","level":"INFO","msg":"stream: started","id":"ukjk1bh8"}
+{"time":"2024-10-24T13:30:18.824005917+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"ukjk1bh8"}}
+{"time":"2024-10-24T13:30:18.823986039+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"ukjk1bh8"}}
+{"time":"2024-10-24T13:30:18.824036282+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"ukjk1bh8"}}
+{"time":"2024-10-24T13:30:20.858876058+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-24T13:30:20.859769106+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-24T13:55:38.436341345+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-24T13:55:38.439036975+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-24T13:55:39.487510969+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-24T13:55:40.720090732+09:00","level":"INFO","msg":"stream: closing","id":"ukjk1bh8"}
+{"time":"2024-10-24T13:55:40.720108009+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"ukjk1bh8"}}
+{"time":"2024-10-24T13:55:40.720139454+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"ukjk1bh8"}}
+{"time":"2024-10-24T13:55:40.720220026+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"ukjk1bh8"}}
+{"time":"2024-10-24T13:55:40.72022941+09:00","level":"INFO","msg":"stream: closed","id":"ukjk1bh8"}

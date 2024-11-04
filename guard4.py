@@ -98,21 +98,23 @@ def generate_one(src_image_path, target_image_path):
 
     # modifier = torch.zeros_like(source_tensor, requires_grad=True)
     # PSNR 쓰려면 mse 0이면 안 돼 -> 초기에 약간의 노이즈 삽입
-    modifier = torch.randn_like(source_tensor, requires_grad=True) * 0.01
+    modifier = torch.randn_like(source_tensor, requires_grad=True) * 0.1
     modifier = modifier.detach().requires_grad_(True)
 
     optimizer = torch.optim.SGD([modifier], lr=0.01)
 
 
-    t_size = 3000
+    t_size = 1000
     max_change = eps / 0.5  # scale from 0,1 to -1,1
     step_size = max_change
 
     for i in range(t_size):
         # Lambda 값 동적 감소
         # lambda_reg = max(0.1 - (i * 0.001), 0.01)
-        # lambda_reg = 0.05
-        lambda_reg = max(0.05 - (i * 0.001), 0.005)
+        lambda_reg = 0.05
+        # lambda_reg = max(0.05 - (i * 0.001), 0.005)
+        # lambda_reg = max(0.1 - (i * 0.0001), 0.02)
+
         optimizer.zero_grad()
 
         actual_step_size = step_size - (step_size - step_size / 100) / t_size * i
@@ -128,7 +130,7 @@ def generate_one(src_image_path, target_image_path):
             # loss = triplet_loss(adv_latent, target_latent, torch_model(source_tensor))
             # loss = triplet_loss(adv_latent, target_latent, source_latent) + lambda_reg * F.mse_loss(adv_tensor, source_tensor)
 
-            triplet_loss_value, pos_dist, neg_dist = triplet_loss(adv_latent, target_latent, source_latent, 0.5)
+            triplet_loss_value, pos_dist, neg_dist = triplet_loss(adv_latent, target_latent, source_latent, 0.2)
             # loss = triplet_loss_value + lambda_reg * F.mse_loss(adv_tensor, source_tensor)
             psnr_loss_values = psnr_loss(adv_tensor, source_tensor)
             psnr_loss_values = psnr_loss_values / (psnr_loss_values.abs() + 1)
@@ -216,6 +218,13 @@ def process_images(source_img_path, target_img_path):
     source_image = cv2.imread(source_img_path)
     target_image = cv2.imread(target_img_path)
 
+    if source_image is None:
+        print("Error: Source image could not be loaded. Check the file path.")
+        return None
+    if target_image is None:
+        print("Error: Target image could not be loaded. Check the file path.")
+        return None
+
     source_face = get_face_bbox(source_image)
     target_face = get_face_bbox(target_image)
 
@@ -293,7 +302,7 @@ def replace_image(original_image: np.ndarray, cropped_image, coords):
 # main
 
 device = "cuda"
-eps = 0.04
+eps = 0.1
 onnx_model_path = '../model/w600k_r50.onnx'
 onnx_model = onnx.load(onnx_model_path)
 det_size=(320, 320)
@@ -302,7 +311,8 @@ face_analyser = get_face_analyser(det_size)
 torch_model = convert(onnx_model)
 torch_model.eval()
 
-src_image_path = 'image/original.png'
+# src_image_path = 'image/original.png'
+src_image_path = 'image/pm.png'
 target_image_path = 'image/IU.png'
 
 src_bbox = process_images(src_image_path, target_image_path)

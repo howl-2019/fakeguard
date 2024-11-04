@@ -1,0 +1,111 @@
+{
+    "os": "Linux-6.8.0-45-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "heartbeatAt": "2024-10-16T08:20:28.904408",
+    "startedAt": "2024-10-16T08:20:28.354083",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "image/pm.png",
+        "image/Timothee.png"
+    ],
+    "state": "running",
+    "program": "/home/user/bob/fakeguard/guard.py",
+    "codePathLocal": "guard.py",
+    "codePath": "guard.py",
+    "git": {
+        "remote": "https://github.com/howl-2019/fakeguard.git",
+        "commit": "a6f935db0f5bd85ef65916d41e0adb3f784069aa"
+    },
+    "email": "skatjdehddms@gmail.com",
+    "root": "/home/user/bob/fakeguard",
+    "host": "user-Z370M-D3H",
+    "username": "user",
+    "executable": "/usr/bin/python3",
+    "cpu_count": 6,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 4299.288083333333,
+        "min": 800.0,
+        "max": 4600.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 4300.016,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4300.007,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4300.007,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4300.022,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4300.033,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4300.011,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4297.579,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4299.67,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4304.767,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4302.766,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4299.975,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 4300.003,
+            "min": 800.0,
+            "max": 4600.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 233.67214584350586,
+            "used": 215.07073593139648
+        }
+    },
+    "gpu": "NVIDIA GeForce RTX 2060",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 2060",
+            "memory_total": 6442450944
+        }
+    ],
+    "memory": {
+        "total": 39.118709564208984
+    }
+}

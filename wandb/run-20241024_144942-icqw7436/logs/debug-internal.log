@@ -1,0 +1,18 @@
+{"time":"2024-10-24T14:49:42.819128179+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-24T14:49:42.819148978+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241024_144942-icqw7436/logs/debug-core.log"}
+{"time":"2024-10-24T14:49:42.853935058+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-24T14:49:42.858330481+09:00","level":"INFO","msg":"created new stream","id":"icqw7436"}
+{"time":"2024-10-24T14:49:42.858363654+09:00","level":"INFO","msg":"stream: started","id":"icqw7436"}
+{"time":"2024-10-24T14:49:42.85837736+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"icqw7436"}}
+{"time":"2024-10-24T14:49:42.858384458+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"icqw7436"}}
+{"time":"2024-10-24T14:49:42.858396424+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"icqw7436"}}
+{"time":"2024-10-24T14:49:43.364170337+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-24T14:49:43.365063458+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-24T14:49:46.812211794+09:00","level":"INFO","msg":"stream: closing","id":"icqw7436"}
+{"time":"2024-10-24T14:49:46.812270744+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-24T14:49:46.814297973+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-24T14:49:48.296090118+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-24T14:49:48.572554275+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"icqw7436"}}
+{"time":"2024-10-24T14:49:48.5726156+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"icqw7436"}}
+{"time":"2024-10-24T14:49:48.572611262+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"icqw7436"}}
+{"time":"2024-10-24T14:49:48.572781475+09:00","level":"INFO","msg":"stream: closed","id":"icqw7436"}

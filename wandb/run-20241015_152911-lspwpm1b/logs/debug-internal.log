@@ -1,0 +1,18 @@
+{"time":"2024-10-15T15:29:11.158968311+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-15T15:29:11.158988791+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241015_152911-lspwpm1b/logs/debug-core.log"}
+{"time":"2024-10-15T15:29:11.167109156+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-15T15:29:11.170926634+09:00","level":"INFO","msg":"created new stream","id":"lspwpm1b"}
+{"time":"2024-10-15T15:29:11.170952833+09:00","level":"INFO","msg":"stream: started","id":"lspwpm1b"}
+{"time":"2024-10-15T15:29:11.170962263+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"lspwpm1b"}}
+{"time":"2024-10-15T15:29:11.170969847+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"lspwpm1b"}}
+{"time":"2024-10-15T15:29:11.170981769+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"lspwpm1b"}}
+{"time":"2024-10-15T15:29:11.444129368+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-15T15:29:11.44566145+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-15T15:29:20.55081509+09:00","level":"INFO","msg":"stream: closing","id":"lspwpm1b"}
+{"time":"2024-10-15T15:29:20.55096766+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-15T15:29:20.555079864+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-15T15:29:21.511291909+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-15T15:29:21.76655483+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"lspwpm1b"}}
+{"time":"2024-10-15T15:29:21.766588415+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"lspwpm1b"}}
+{"time":"2024-10-15T15:29:21.766579658+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"lspwpm1b"}}
+{"time":"2024-10-15T15:29:21.766667632+09:00","level":"INFO","msg":"stream: closed","id":"lspwpm1b"}

@@ -1,0 +1,18 @@
+{"time":"2024-10-10T15:42:32.871096361+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-10T15:42:32.871128987+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241010_154232-w0drnzrx/logs/debug-core.log"}
+{"time":"2024-10-10T15:42:32.876269472+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-10T15:42:32.881163394+09:00","level":"INFO","msg":"created new stream","id":"w0drnzrx"}
+{"time":"2024-10-10T15:42:32.881194663+09:00","level":"INFO","msg":"stream: started","id":"w0drnzrx"}
+{"time":"2024-10-10T15:42:32.881205172+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"w0drnzrx"}}
+{"time":"2024-10-10T15:42:32.881225043+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"w0drnzrx"}}
+{"time":"2024-10-10T15:42:32.88121683+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"w0drnzrx"}}
+{"time":"2024-10-10T15:42:33.282910897+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-10T15:42:33.284532158+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-10T15:42:38.483790416+09:00","level":"INFO","msg":"stream: closing","id":"w0drnzrx"}
+{"time":"2024-10-10T15:42:38.483823456+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-10T15:42:38.485887193+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-10T15:42:39.308077881+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-10T15:42:39.522285576+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"w0drnzrx"}}
+{"time":"2024-10-10T15:42:39.522339454+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"w0drnzrx"}}
+{"time":"2024-10-10T15:42:39.522347266+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"w0drnzrx"}}
+{"time":"2024-10-10T15:42:39.522418711+09:00","level":"INFO","msg":"stream: closed","id":"w0drnzrx"}

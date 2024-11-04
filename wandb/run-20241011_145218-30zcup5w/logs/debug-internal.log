@@ -1,0 +1,18 @@
+{"time":"2024-10-11T14:52:18.482814511+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-11T14:52:18.48283474+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241011_145218-30zcup5w/logs/debug-core.log"}
+{"time":"2024-10-11T14:52:18.492972228+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-11T14:52:18.497246471+09:00","level":"INFO","msg":"created new stream","id":"30zcup5w"}
+{"time":"2024-10-11T14:52:18.497278231+09:00","level":"INFO","msg":"stream: started","id":"30zcup5w"}
+{"time":"2024-10-11T14:52:18.497309529+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"30zcup5w"}}
+{"time":"2024-10-11T14:52:18.497294536+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"30zcup5w"}}
+{"time":"2024-10-11T14:52:18.497309428+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"30zcup5w"}}
+{"time":"2024-10-11T14:52:18.947633789+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-11T14:52:18.948554229+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-11T15:22:27.735435148+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-11T15:22:27.737788951+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-11T15:22:28.746184343+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-11T15:22:30.064591681+09:00","level":"INFO","msg":"stream: closing","id":"30zcup5w"}
+{"time":"2024-10-11T15:22:30.064608354+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"30zcup5w"}}
+{"time":"2024-10-11T15:22:30.064634476+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"30zcup5w"}}
+{"time":"2024-10-11T15:22:30.064689542+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"30zcup5w"}}
+{"time":"2024-10-11T15:22:30.064698904+09:00","level":"INFO","msg":"stream: closed","id":"30zcup5w"}

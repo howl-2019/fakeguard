@@ -1,0 +1,18 @@
+{"time":"2024-10-22T19:22:06.867589964+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-22T19:22:06.867609681+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241022_192206-9x3l24wd/logs/debug-core.log"}
+{"time":"2024-10-22T19:22:06.873132327+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-22T19:22:06.878218885+09:00","level":"INFO","msg":"created new stream","id":"9x3l24wd"}
+{"time":"2024-10-22T19:22:06.878253094+09:00","level":"INFO","msg":"stream: started","id":"9x3l24wd"}
+{"time":"2024-10-22T19:22:06.878271284+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"9x3l24wd"}}
+{"time":"2024-10-22T19:22:06.878284927+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"9x3l24wd"}}
+{"time":"2024-10-22T19:22:06.878315961+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"9x3l24wd"}}
+{"time":"2024-10-22T19:22:07.214832761+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-22T19:22:07.21578055+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-22T19:37:46.380778095+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-22T19:37:46.383137337+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-22T19:37:47.419533301+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-22T19:37:48.697115548+09:00","level":"INFO","msg":"stream: closing","id":"9x3l24wd"}
+{"time":"2024-10-22T19:37:48.697133436+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"9x3l24wd"}}
+{"time":"2024-10-22T19:37:48.697159518+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"9x3l24wd"}}
+{"time":"2024-10-22T19:37:48.69720839+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"9x3l24wd"}}
+{"time":"2024-10-22T19:37:48.697218031+09:00","level":"INFO","msg":"stream: closed","id":"9x3l24wd"}

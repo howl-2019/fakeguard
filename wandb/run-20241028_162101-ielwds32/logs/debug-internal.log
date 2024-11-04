@@ -1,0 +1,18 @@
+{"time":"2024-10-28T16:21:01.72951641+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-28T16:21:01.729548505+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241028_162101-ielwds32/logs/debug-core.log"}
+{"time":"2024-10-28T16:21:01.733259446+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-28T16:21:01.738079057+09:00","level":"INFO","msg":"created new stream","id":"ielwds32"}
+{"time":"2024-10-28T16:21:01.738127748+09:00","level":"INFO","msg":"stream: started","id":"ielwds32"}
+{"time":"2024-10-28T16:21:01.738152113+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"ielwds32"}}
+{"time":"2024-10-28T16:21:01.73816328+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"ielwds32"}}
+{"time":"2024-10-28T16:21:01.738139479+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"ielwds32"}}
+{"time":"2024-10-28T16:21:02.066992088+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-28T16:21:02.068588389+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-28T16:21:07.159458898+09:00","level":"INFO","msg":"stream: closing","id":"ielwds32"}
+{"time":"2024-10-28T16:21:07.159493148+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-28T16:21:07.16192842+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-28T16:21:08.037250564+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-28T16:21:08.312740552+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"ielwds32"}}
+{"time":"2024-10-28T16:21:08.312805602+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"ielwds32"}}
+{"time":"2024-10-28T16:21:08.312816872+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"ielwds32"}}
+{"time":"2024-10-28T16:21:08.312878112+09:00","level":"INFO","msg":"stream: closed","id":"ielwds32"}

@@ -1,0 +1,10 @@
+{"time":"2024-10-10T15:53:37.200821357+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-10T15:53:37.200842995+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241010_155337-6hmyuvib/logs/debug-core.log"}
+{"time":"2024-10-10T15:53:37.242655268+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-10T15:53:37.24759207+09:00","level":"INFO","msg":"created new stream","id":"6hmyuvib"}
+{"time":"2024-10-10T15:53:37.24762405+09:00","level":"INFO","msg":"stream: started","id":"6hmyuvib"}
+{"time":"2024-10-10T15:53:37.247655657+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"6hmyuvib"}}
+{"time":"2024-10-10T15:53:37.247696228+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"6hmyuvib"}}
+{"time":"2024-10-10T15:53:37.247637254+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"6hmyuvib"}}
+{"time":"2024-10-10T15:53:37.638991309+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-10T15:53:37.640113042+09:00","level":"INFO","msg":"Starting system monitor"}

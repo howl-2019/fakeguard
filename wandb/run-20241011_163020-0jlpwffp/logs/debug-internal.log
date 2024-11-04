@@ -1,0 +1,18 @@
+{"time":"2024-10-11T16:30:20.047112772+09:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2024-10-11T16:30:20.047133034+09:00","level":"INFO","msg":"created symlink","path":"/home/user/bob/fakeguard/wandb/run-20241011_163020-0jlpwffp/logs/debug-core.log"}
+{"time":"2024-10-11T16:30:20.11211846+09:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2024-10-11T16:30:20.127173982+09:00","level":"INFO","msg":"created new stream","id":"0jlpwffp"}
+{"time":"2024-10-11T16:30:20.127313235+09:00","level":"INFO","msg":"stream: started","id":"0jlpwffp"}
+{"time":"2024-10-11T16:30:20.127443033+09:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"0jlpwffp"}}
+{"time":"2024-10-11T16:30:20.127332342+09:00","level":"INFO","msg":"sender: started","stream_id":{"value":"0jlpwffp"}}
+{"time":"2024-10-11T16:30:20.127413687+09:00","level":"INFO","msg":"handler: started","stream_id":{"value":"0jlpwffp"}}
+{"time":"2024-10-11T16:30:20.560852373+09:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-10-11T16:30:20.56907434+09:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-11T20:06:39.521860145+09:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-11T20:06:39.528592229+09:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-11T20:06:40.551364532+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-11T20:06:41.769108634+09:00","level":"INFO","msg":"stream: closing","id":"0jlpwffp"}
+{"time":"2024-10-11T20:06:41.769127349+09:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"0jlpwffp"}}
+{"time":"2024-10-11T20:06:41.769155759+09:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"0jlpwffp"}}
+{"time":"2024-10-11T20:06:41.769217305+09:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"0jlpwffp"}}
+{"time":"2024-10-11T20:06:41.769228151+09:00","level":"INFO","msg":"stream: closed","id":"0jlpwffp"}

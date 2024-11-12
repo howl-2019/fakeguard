@@ -12,7 +12,8 @@ import torch
 from insightface.app import FaceAnalysis
 import cv2
 import wandb
-
+from torch.optim.lr_scheduler import StepLR
+from lpips import LPIPS
 
 from torch import optim
 
@@ -60,67 +61,69 @@ def generate_one(src_image_path, target_image_path):
     source_tensor = preprocess_image(src_image_path)
     target_tensor = preprocess_image(target_image_path)
 
+    source_tensor = source_tensor.to(device)
+    target_tensor = target_tensor.to(device)
 
     with torch.no_grad():
-        #target_latent = torch_model(target_tensor)
-        target_latent = torch_model(source_tensor)
-    np.savetxt('target.txt', target_latent.numpy(), fmt='%f')
+        target_auto = torch_model(target_tensor)
+        target_gan = netArc(target_tensor)
+    # np.savetxt('target.txt', target_auto.numpy(), fmt='%f')
     
-    with torch.no_grad():
-        source_latent = torch_model(source_tensor)
-    np.savetxt('source.txt', source_latent.numpy(), fmt='%f')
+    # with torch.no_grad():
+    #     source_auto = torch_model(source_tensor)
+    #     source_gen = netArc(source_tensor)
     
     modifier = torch.zeros_like(source_tensor, requires_grad=True)
-
-
+    # modifier = torch.zeros_like(source_tensor[:, :1, :, :], requires_grad=True)
     optimizer = optim.Adam([modifier], lr=0.001)
+    # scheduler = StepLR(optimizer, step_size=100, gamma=0.1)
     
     t_size = 1500
     max_change = eps / 0.5  # scale from 0,1 to -1,1
     step_size = max_change
 
     for i in range(t_size):
-        actual_step_size = step_size - (step_size - step_size / 100) / t_size * i
-
+        # actual_step_size = step_size - (step_size - step_size / 100) / t_size * i
         adv_tensor = torch.clamp(modifier + source_tensor, -1, 1) # adv, modifier connect
-        adv_latent = torch_model(adv_tensor)
+        adv_tensor = adv_tensor.to(device)
+        adv_auto = torch_model(adv_tensor)
+        adv_gan = netArc(adv_tensor)
         
-        uc_distance = (adv_latent - target_latent).norm()
-        #loss = 0.5 * torch.abs(adv_latent - target_latent).sum() + 0.5 * torch.norm(adv_latent - target_latent)
-        #loss = torch.nn.functional.kl_div(adv_latent.log_softmax(dim=-1), target_latent, reduction='batchmean')            
-        #loss = torch.nn.functional.mse_loss(adv_latent, target_latent)
-        #loss = 1 - torch.nn.functional.cosine_similarity(adv_latent, target_latent, dim=0).mean()
+        uc_dis_auto = (adv_auto - target_auto).norm()
+        dual_dis_auto = 0.5 * torch.abs(adv_auto - target_auto).sum() + 0.5 * torch.norm(adv_auto - target_auto)
+        mse_loss_auto = torch.nn.functional.mse_loss(adv_auto, target_auto)
+        cosine_loss_auto = 1 - torch.nn.functional.cosine_similarity(adv_auto, target_auto, dim=0).mean()
         
-        #mse_loss = torch.nn.functional.mse_loss(adv_latent, target_latent)
-        cosine_loss = 1 - torch.nn.functional.cosine_similarity(adv_latent, target_latent, dim=0).mean()
-        loss = uc_distance + cosine_loss
-        # loss = -uc_distance
+        uc_dis_gan = (adv_gan - target_gan).norm()
+        dual_dis_gan = 0.5 * torch.abs(adv_gan - target_gan).sum() + 0.5 * torch.norm(adv_gan - target_gan) 
+        mse_loss_gan = torch.nn.functional.mse_loss(adv_gan, target_gan)
+        cosine_loss_gan = 1 - torch.nn.functional.cosine_similarity(adv_gan, target_gan, dim=0).mean()
         
+        loss_auto = dual_dis_auto + mse_loss_auto
+        loss_gan = dual_dis_gan + mse_loss_gan
+        loss = -(loss_auto + loss_gan)
+        # loss = -loss_gan
 
-        wandb.log({"loss": loss, "mse_loss": uc_distance, "cosine_loss": cosine_loss})
+        wandb.log({"distance_auto": dual_dis_auto,"mse_auto": mse_loss_auto , "distance_gan": dual_dis_gan, "mse_gan": mse_loss_gan, "Loss": loss})
         
-        grad = (torch.autograd.grad(-loss, modifier, allow_unused=False)[0])
-        if grad is None:
-            print("skip")
-            continue
-
-        modifier = modifier - torch.sign(grad) * actual_step_size
-        modifier = torch.clamp(modifier, -max_change, max_change)
+        optimizer.zero_grad()
+        loss.backward()
+        # torch.nn.utils.clip_grad_norm_(list(torch_model.parameters()) + list(netArc.parameters()), max_norm=1.0)
+        optimizer.step()
+        # scheduler.step()
+        modifier.data.clamp_(-max_change, max_change)
         
-        # optimizer.zero_grad()
-        # loss.backward()
-        # optimizer.step()
         
         if i % 50 == 0:
             print(f"# Iter: {i}\tLoss: {loss.mean().item():.3f}")
 
-            iter_img = tensor2img(modifier + source_tensor)
-            iter_img.save(f"modifier_image_iter_{i}.png")
+            # iter_img = tensor2img(modifier + source_tensor)
+            # iter_img.save(f"modifier_image_iter_{i}.png")
 
             # Save the difference
-            diff = torch.abs(modifier)
-            diff_img = tensor2img(diff)
-            diff_img.save(f"modifier_diff_iter_{i}.png")
+            # diff = torch.abs(modifier)
+            # diff_img = tensor2img(diff)
+            # diff_img.save(f"modifier_diff_iter_{i}.png")
 
     final_adv_batch = torch.clamp(modifier + source_tensor, -1.0, 1.0)
 
@@ -130,13 +133,11 @@ def generate_one(src_image_path, target_image_path):
     final_modifier_img = tensor2img(modifier + source_tensor)
     final_modifier_img.save("modifier_image_final.png")
 
-    final_diff = torch.abs(modifier)
-    final_diff_img = tensor2img(final_diff)
-    final_diff_img.save("modifier_diff_final.png")
+    # final_diff = torch.abs(modifier)
+    # final_diff_img = tensor2img(final_diff)
+    # final_diff_img.save("modifier_diff_final.png")
     wandb.finish()
-    np.savetxt('adv_latent.txt', adv_latent.detach().cpu().numpy(), fmt='%f')
-
-
+    # np.savetxt('adv_latent.txt', adv_latent.detach().cpu().numpy(), fmt='%f')
     return final_img
     
 def get_face_analyser(det_size):
@@ -175,8 +176,8 @@ def process_images(source_img_path, target_img_path):
     cropped_source_face = crop_face_bbox(source_image, source_face)
     cropped_target_face = crop_face_bbox(target_image, target_face)
 
-    cv2.imwrite("source_face.png", cropped_source_face)
-    cv2.imwrite("target_face.png", cropped_target_face)
+    cv2.imwrite(os.path.join(os.path.dirname(__file__), '.\\source_face.png'), cropped_source_face)
+    cv2.imwrite(os.path.join(os.path.dirname(__file__), '.\\target_face.png'), cropped_target_face)
     print("Cropped faces saved.")
 
     return source_bbox
@@ -184,41 +185,122 @@ def process_images(source_img_path, target_img_path):
 def replace_image(original_image: np.ndarray, cropped_image, coords):
     # 좌표 가져오기
     x1, y1, x2, y2 = coords
+    target_height = y2 -y1
+    target_width = x2 - x1
 
     # 크롭된 이미지를 coords 크기에 맞게 변형
     if isinstance(cropped_image, Image.Image):
         cropped_image = np.array(cropped_image)
     # 채널 순서 변환 (RGB -> BGR)
     cropped_image = cv2.cvtColor(cropped_image, cv2.COLOR_RGB2BGR)
-    resized_cropped_image = cv2.resize(cropped_image, (x2 - x1, y2 - y1))
+    resized_cropped_image = cv2.resize(cropped_image, (target_width, target_height))
 
     # 원본 이미지에 다시 삽입
     original_image[y1:y2, x1:x2] = resized_cropped_image
+    cv2.imwrite("output\\resized_image.png", resized_cropped_image)
+
     return original_image
 
+def replace_blend_image(original_image: np.ndarray, cropped_image, coords):
+    # 좌표 가져오기
+    x1, y1, x2, y2 = coords
+    target_height = y2 -y1
+    target_width = x2 - x1
+    eighth_h = target_height // 8
+    remaining_h = target_height - eighth_h * 2
+    eighth_w = target_width // 8
+    remaining_w = target_width - eighth_w * 2
+
+
+    # 크롭된 이미지를 coords 크기에 맞게 변형
+    if isinstance(cropped_image, Image.Image):
+        cropped_image = np.array(cropped_image)
+    # 채널 순서 변환 (RGB -> BGR)
+    cropped_image = cv2.cvtColor(cropped_image, cv2.COLOR_RGB2BGR)
+    resized_cropped_image = cv2.resize(cropped_image, (target_width, target_height))
+
+    # 데이터 타입 확인 및 변환 (float -> uint8)
+    if resized_cropped_image.dtype != original_image.dtype:
+        resized_cropped_image = resized_cropped_image.astype(original_image.dtype)
+    
+
+    # 알파 마스크 생성 (중심은 1, 모서리로 갈수록 0으로 감소)
+    ## 가로세로 각 8등분해서 가운데 6칸씩은 무조건 100% 투명도 보장
+    mask_y_q = np.linspace(0, 1, eighth_h)
+    mask_y = np.concatenate((mask_y_q, np.ones(remaining_h), mask_y_q[::-1]), axis=0)[:, np.newaxis]
+
+    mask_x_q = np.linspace(0, 1, eighth_w)
+    mask_x = np.concatenate((mask_x_q, np.ones(remaining_w), mask_x_q[::-1]), axis=0)[np.newaxis, :]
+
+    mask = np.minimum(mask_y, mask_x)
+
+    mask = mask[..., np.newaxis]  # 채널 차원 추가
+
+    # 블렌딩 (마스크가 3채널로 변환되어야 함)
+    mask = np.repeat(mask, 3, axis=2)
+
+    # 원본 이미지에 다시 삽입 (크기가 정확히 맞는지 확인)
+    if resized_cropped_image.shape[:2] == (target_height, target_width):
+        blended_image = (resized_cropped_image * mask + original_image[y1:y2, x1:x2] * (1 - mask)).astype(
+            original_image.dtype)
+        cv2.imwrite("output\\blended_image.png", blended_image)
+        original_image[y1:y2, x1:x2] = blended_image
+    else:
+        print("Error: Resized cropped image dimensions do not match target dimensions.")
+
+    # 원본 이미지에 다시 삽입
+    # original_image[y1:y2, x1:x2] = resized_cropped_image
+    return original_image
 
 # main
 
 device = "cuda"
-eps = 0.03
-onnx_model_path = '../model/w600k_r50.onnx'
+eps = 0.04
+onnx_model_path = netArc_checkpoint = os.path.join(os.path.dirname(__file__), '..\\model\\arcface_w600k_r50.onnx')
+
 onnx_model = onnx.load(onnx_model_path)
 det_size=(320, 320)
 face_analyser = get_face_analyser(det_size)
 
 torch_model = convert(onnx_model)
+torch_model = torch_model.to(device)
 torch_model.eval()
 
-src_image_path = 'image/original.png'
-target_image_path = 'image/yua.png'
+netArc_checkpoint = os.path.join(os.path.dirname(__file__), '..\\model\\arcface_checkpoint.tar')
+netArc_checkpoint = torch.load(netArc_checkpoint, map_location=torch.device("cpu"))
+netArc = netArc_checkpoint
+netArc = netArc.to(device)
+netArc.eval()
+
+lpips_model = LPIPS(net='alex').to(device).eval()
+
+for param in torch_model.parameters():
+    print("torch_model is on device:", param.device)
+    break  # 첫 번째 파라미터만 확인
+
+# netArc의 첫 번째 파라미터의 장치를 확인
+for param in netArc.parameters():
+    print("netArc is on device:", param.device)
+    break  # 첫 번째 파라미터만 확인
+
+if torch.cuda.is_available():
+    current_device = torch.cuda.current_device()
+    print(f"Current GPU device: {current_device}")
+    print(f"GPU device name: {torch.cuda.get_device_name(current_device)}")
+else:
+    print("CUDA is not available.")
+
+src_image_path = os.path.join(os.path.dirname(__file__), "image\\soji.jpg")
+target_image_path = os.path.join(os.path.dirname(__file__), "image\\soji3.jpg")
+
+print(src_image_path, target_image_path)
 
 src_bbox = process_images(src_image_path, target_image_path)
 
-noised_img = generate_one("source_face.png", "target_face.png")
+noised_img = generate_one(os.path.join(os.path.dirname(__file__), 'source_face.png'), os.path.join(os.path.dirname(__file__), 'target_face.png'))
 
 original_img = cv2.imread(src_image_path)
-final_image = replace_image(original_img, noised_img, src_bbox)
+final_image = replace_blend_image(original_img, noised_img, src_bbox)
 
-cv2.imwrite("output/final_image.png", final_image)
-
+cv2.imwrite(os.path.join(os.path.dirname(__file__), "final_image.png"), final_image)
 print("Image processing completed!")

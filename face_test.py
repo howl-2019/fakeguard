@@ -29,7 +29,7 @@ def preprocess_image(image_path):
     image_tensor = transform(image).unsqueeze(0)  # 배치 차원을 추가하여 (1, 3, 112, 112) 형태로 만듦
     return image_tensor
 
-image_path = 'image/bboriginal.png'  # 처리할 이미지 경로
+image_path = 'image/test_image.png'  # 처리할 이미지 경로
 input_tensor = preprocess_image(image_path)
 
 embedding_vector = torch_model(input_tensor)

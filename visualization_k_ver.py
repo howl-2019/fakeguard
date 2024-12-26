@@ -14,7 +14,7 @@ import cv2
 
 from torch.utils.tensorboard import SummaryWriter
 import pandas as pd
-    
+
 
 # webface
 class FaceSwap:
@@ -42,9 +42,15 @@ class FaceSwap:
     def extract_embedding(self, image: np.ndarray):
         face = self.get_one_face(image)
         if face is not None:
+            # 만약 face.embedding이 torch.Tensor라면, CPU로 이동 후 numpy로 변환
+            if isinstance(face.embedding, torch.Tensor):
+                face.embedding = face.embedding.cpu().numpy()
+
             return face.embedding
         print("webface - 얼굴 없음")
         return None
+
+
 
 #facenet
 def extract_embedding(face):
@@ -85,9 +91,12 @@ def process_images(source_img_path):
     x1, y1, x2, y2 = source_face.bbox.astype(int)
     cropped_face = source_image[y1:y2, x1:x2]
     
-    # print(":::::bbox::::::", list(x1, y1, x2, y2))
+    # 이미지가 numpy 배열이라면, PIL로 변환 후 변환 적용
+    cropped_face_pil = Image.fromarray(cropped_face)
+    tensor = transform(cropped_face_pil).unsqueeze(0).to(device)
 
-    return cropped_face
+    return tensor
+
 
 
 def main():
@@ -109,29 +118,36 @@ def main():
     
     
     
-
+    """    # 보호된 이미지(노이즈 삽입된) 까지 비교하기
+    # vec1 = extract_embedding(mtcnn(Image.open(final_path)))
+    # vec2 = face_swap.extract_embedding(np.array(Image.open(final_path)))
+    t3 = Image.open(final_path).convert('RGB')
+    t3 = transform(t3).unsqueeze(0).to(device)
+    vec3 = netArc(t3).flatten()
+    with open(tsv_path,"w") as t:
+        # t.write("\t".join(map(str, vec1.tolist())) + "\n")
+        # t.write("\t".join(map(str, vec2.tolist())) + "\n")
+        t.write("\t".join(map(str, vec3.tolist())) + "\n")
+    with open(meta_path, "w") as m:
+        # m.write("F_FINAL\nW_FIANL\nA_FINAL")
+        m.write("A_FINAL\n")"""
     
     
     # Facenet 임베딩 벡터
     for img in os.listdir(image_dir):
         if img.endswith("png"):
-            if img.startswith("eps"): continue
-            image = Image.open(os.path.join(image_dir, img))
-            face = mtcnn(image.convert('RGB'))
-            if face is None: continue
-            vec = extract_embedding(face)
-            if vec is None: continue
+            # image = process_images(os.path.join(image_dir, img))
+            vec = extract_embedding(mtcnn(Image.open(os.path.join(image_dir, img))))
             with open(F_tsv_path, "a") as t:
                 t.write("\t".join(map(str, vec.tolist())) + "\n")
-            with open(F_meta_path, "a") as m:
-                m.write(img + "\n")
+            with open(A_meta_path, "a") as m:
+                m.write("F_" + img + "\n")
             print(f"save::: embedding vector of {img} by FaceNet")
             
 
     # webface 임베딩 벡터
     for img in os.listdir(image_dir):
         if img.endswith("png"):
-            if img.startswith("eps"): continue
             image = process_images(os.path.join(image_dir, img))
             if image is None: continue
             vec = face_swap.extract_embedding(np.array(image))
@@ -139,24 +155,23 @@ def main():
             with open(W_tsv_path, "a") as t:
                 t.write("\t".join(map(str, vec.tolist())) + "\n")
             with open(W_meta_path, "a") as m:
-                m.write(img + "\n")
+                m.write("W_" + img + "\n")
             print(f"save::: embedding vector of {img} by WebFace")
 
 
     # arcface 임베딩 벡터
     for img in os.listdir(image_dir):
-        if img.endswith("png"):
-            if img.startswith("eps"): continue
+        if (img.startswith("eps") or img.startswith("auto")) and img.endswith("png"):
             # tensor = Image.open(os.path.join(image_dir, img)).convert('RGB')
             image = process_images(os.path.join(image_dir, img))
             if image is None: continue
-            tensor = transform(Image.fromarray(image)).unsqueeze(0).to(device)
+            tensor = transform(image).unsqueeze(0).to(device)
             vec = netArc(tensor).flatten()
             if vec is None: continue
             with open(A_tsv_path, "a") as t:
                 t.write("\t".join(map(str, vec.tolist())) + "\n")
             with open(A_meta_path, "a") as m:
-                m.write(img + "\n")
+                m.write("A_" + img + "\n")
             print(f"save::: embedding vector of {img} by ArcFace")
     
 
@@ -173,7 +188,7 @@ def visualization():
     with open(A_meta_path, 'r') as f:
         meta = [line.strip() for line in f]
     # TensorBoard SummaryWriter 생성 (log_dir 설정)
-    writer_A = SummaryWriter(os.path.join(vec_dir,'Arcface'))
+    writer_A = SummaryWriter('/home/user/bob/fakeguard/vec/test3/Arcface')
     # PyTorch Tensor로 변환 후 임베딩 추가
     # embedding_auto_tensor = torch.tensor(vectors_auto, dtype=torch.float)
     writer_A.add_embedding(vectors_A, metadata=meta, tag="Embedding Vectors by Arcface")
@@ -186,7 +201,7 @@ def visualization():
     with open(F_meta_path, 'r') as f:
         meta = [line.strip() for line in f]
     # TensorBoard SummaryWriter 생성 (log_dir 설정)
-    writer_F = SummaryWriter(os.path.join(vec_dir,'FaceNet'))
+    writer_F = SummaryWriter('/home/user/bob/fakeguard/vec/test3/FaceNet')
     # PyTorch Tensor로 변환 후 임베딩 추가
     # embedding_auto_tensor = torch.tensor(vectors_auto, dtype=torch.float)
     writer_F.add_embedding(vectors_F, metadata=meta, tag="Embedding Vectors by FaceNet")
@@ -200,7 +215,7 @@ def visualization():
     with open(W_meta_path, 'r') as f:
         meta = [line.strip() for line in f]
     # TensorBoard SummaryWriter 생성 (log_dir 설정)
-    writer_W = SummaryWriter(os.path.join(vec_dir,'WebFace'))
+    writer_W = SummaryWriter('/home/user/bob/fakeguard/vec/test3/WebFace')
     # PyTorch Tensor로 변환 후 임베딩 추가
     # embedding_auto_tensor = torch.tensor(vectors_auto, dtype=torch.float)
     writer_W.add_embedding(vectors_W, metadata=meta, tag="Embedding Vectors by WebFace")
@@ -236,26 +251,14 @@ if __name__ == '__main__':
     
     
     image_dir = '/home/user/bob/fakeguard/analysis_result/pm'
-    vec_dir = '/home/user/bob/fakeguard/vec/pm'
     
-    A_tsv_path = os.path.join(image_dir, "A_embeddings.tsv")
-    A_meta_path = os.path.join(image_dir, "A_metadata.tsv")
-    F_tsv_path = os.path.join(image_dir, "F_embeddings.tsv")
-    F_meta_path = os.path.join(image_dir, "F_metadata.tsv")
-    W_tsv_path = os.path.join(image_dir, "W_embeddings.tsv")
-    W_meta_path = os.path.join(image_dir, "W_metadata.tsv")
+    A_tsv_path = '/home/user/bob/fakeguard/analysis_result/A_embeddings.tsv'
+    A_meta_path = '/home/user/bob/fakeguard/analysis_result/A_metadata.tsv'
+    F_tsv_path = '/home/user/bob/fakeguard/analysis_result/F_embeddings.tsv'
+    F_meta_path = '/home/user/bob/fakeguard/analysis_result/F_metadata.tsv'
+    W_tsv_path = '/home/user/bob/fakeguard/analysis_result/W_embeddings.tsv'
+    W_meta_path = '/home/user/bob/fakeguard/analysis_result/W_metadata.tsv'
 
-    # 모든 경로들을 리스트로 정리
-    file_paths = [A_tsv_path, A_meta_path, F_tsv_path, F_meta_path, W_tsv_path, W_meta_path]
-
-    # 파일 생성 반복문
-    for path in file_paths:
-
-        # 파일 생성 (내용 없이 빈 파일로 생성)
-        with open(path, 'w') as f: pass
-        
     main()
 
     visualization()
-    
-    

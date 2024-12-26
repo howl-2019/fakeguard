@@ -13,9 +13,8 @@ from insightface.app import FaceAnalysis
 import cv2
 import wandb
 from torch.optim.lr_scheduler import StepLR
-from torch import optim 
 
-import sys
+from torch import optim
 
 wandb.init(
     # set the wandb project where this run will be logged
@@ -29,6 +28,7 @@ wandb.init(
     "epochs": 10,
     }
 )
+
 
 def preprocess_image(image_path):
     image = Image.open(image_path).convert('RGB')
@@ -51,51 +51,29 @@ def tensor2img(cur_img):
     cur_img = Image.fromarray(cur_img.astype(np.uint8))
     return cur_img
 
-def generate_one(src_image_path, target_image_path_1, target_image_path_2, target_image_path_3, target_image_path_4):
+def generate_one(src_image_path, target_image_path):
     # if not os.path.exists(src_image_path):
     #     raise FileNotFoundError(f"Source image not found: {src_image_path}")
     # if not os.path.exists(target_image_path):
     #     raise FileNotFoundError(f"Target image not found: {target_image_path}")
 
     source_tensor = preprocess_image(src_image_path)
-    target_tensor_1 = preprocess_image(target_image_path_1)
-    target_tensor_2 = preprocess_image(target_image_path_2)
-    target_tensor_3 = preprocess_image(target_image_path_3)
-    target_tensor_4 = preprocess_image(target_image_path_4)
+    target_tensor = preprocess_image(target_image_path)
 
     source_tensor = source_tensor.to(device)
-    target_tensor_1 = target_tensor_1.to(device)
-    target_tensor_2 = target_tensor_2.to(device)
-    target_tensor_3 = target_tensor_3.to(device)
-    target_tensor_4 = target_tensor_4.to(device)
+    target_tensor = target_tensor.to(device)
 
     with torch.no_grad():
-        target_auto_1 = torch_model(target_tensor_1)
-        target_auto_2 = torch_model(target_tensor_2)
-        target_auto_3 = torch_model(target_tensor_3)
-        target_auto_4 = torch_model(target_tensor_4)
-        target_gan_1 = netArc(target_tensor_1)
-        target_gan_2 = netArc(target_tensor_2)
-        target_gan_3 = netArc(target_tensor_3)
-        target_gan_4 = netArc(target_tensor_4)
-    
-    all_auto = torch.stack([
-    target_auto_1, target_auto_2, target_auto_3, target_auto_4
-])
-    all_gan = torch.stack([
-    target_gan_1, target_gan_2, target_gan_3, target_gan_4
-])
-    target_auto = torch.mean(all_auto, dim=0)
-    target_gan = torch.mean(all_gan, dim=0)
-    
+        target_auto = torch_model(target_tensor)
+        target_gan = netArc(target_tensor)
     # np.savetxt('target.txt', target_auto.numpy(), fmt='%f')
     
     # with torch.no_grad():
     #     source_auto = torch_model(source_tensor)
     #     source_gen = netArc(source_tensor)
     
-    # modifier = torch.zeros_like(source_tensor, requires_grad=True)
-    modifier = torch.zeros_like(source_tensor[:, :1, :, :], requires_grad=True)
+    modifier = torch.zeros_like(source_tensor, requires_grad=True)
+    # modifier = torch.zeros_like(source_tensor[:, :1, :, :], requires_grad=True)
     optimizer = optim.Adam([modifier], lr=0.01)
     # scheduler = StepLR(optimizer, step_size=100, gamma=0.1)
     
@@ -105,8 +83,7 @@ def generate_one(src_image_path, target_image_path_1, target_image_path_2, targe
 
     for i in range(t_size):
         # actual_step_size = step_size - (step_size - step_size / 100) / t_size * i
-        adv_tensor = torch.clamp(modifier + source_tensor, -1, 1)
-        # adv_tensor = modifier + source_tensor # adv, modifier connect
+        adv_tensor = torch.clamp(modifier + source_tensor, -1, 1) # adv, modifier connect
         adv_tensor = adv_tensor.to(device)
         adv_auto = torch_model(adv_tensor)
         adv_gan = netArc(adv_tensor)
@@ -122,11 +99,11 @@ def generate_one(src_image_path, target_image_path_1, target_image_path_2, targe
         cosine_loss_gan = 1 - torch.nn.functional.cosine_similarity(adv_gan, target_gan, dim=0).mean()
         
         loss_auto = dual_dis_auto + mse_loss_auto
-        loss_gan = dual_dis_gan + 2 * mse_loss_gan
-        loss = -(loss_auto + 2 * loss_gan)
+        loss_gan = dual_dis_gan + 4 * mse_loss_gan
+        loss = (loss_auto + 4 * loss_gan)
         # loss = -loss_gan
 
-        wandb.log({"distance_auto": dual_dis_auto,"mse_auto": mse_loss_auto, 
+        wandb.log({"distance_auto": dual_dis_auto,"mse_auto": mse_loss_auto ,
                    "distance_gan": dual_dis_gan, "mse_gan": mse_loss_gan,
                    "Loss": loss})
         
@@ -135,7 +112,7 @@ def generate_one(src_image_path, target_image_path_1, target_image_path_2, targe
         # torch.nn.utils.clip_grad_norm_(list(torch_model.parameters()) + list(netArc.parameters()), max_norm=1.0)
         optimizer.step()
         # scheduler.step()
-        modifier.data.clamp_(-max_change, max_change)
+        # modifier.data.clamp_(-max_change, max_change)
         
         
         if i % 50 == 0:
@@ -152,10 +129,10 @@ def generate_one(src_image_path, target_image_path_1, target_image_path_2, targe
     final_adv_batch = torch.clamp(modifier + source_tensor, -1.0, 1.0)
 
     final_img = tensor2img(final_adv_batch)
-    final_img.save("final_image.png")
+    final_img.save("final_image_one_target.png")
 
     final_modifier_img = tensor2img(modifier + source_tensor)
-    final_modifier_img.save("modifier_image_final.png")
+    final_modifier_img.save("modifier_image_final_one_target.png")
 
     # final_diff = torch.abs(modifier)
     # final_diff_img = tensor2img(final_diff)
@@ -184,41 +161,24 @@ def crop_face_bbox(image, face):
 
     return cropped_face
 
-def process_images(source_img_path, target_img_path_1, target_img_path_2, target_img_path_3, target_img_path_4):
+def process_images(source_img_path, target_img_path):
     source_image = cv2.imread(source_img_path)
-    
-    target_image_1 = cv2.imread(target_img_path_1)
-    target_image_2 = cv2.imread(target_img_path_2)
-    target_image_3 = cv2.imread(target_img_path_3)
-    target_image_4 = cv2.imread(target_img_path_4)
+    target_image = cv2.imread(target_img_path)
 
     source_face = get_face_bbox(source_image)
-    
-    target_face_2 = get_face_bbox(target_image_2)
-    target_face_3 = get_face_bbox(target_image_3)
-    target_face_4 = get_face_bbox(target_image_4)
-    target_face_1 = get_face_bbox(target_image_1)
+    target_face = get_face_bbox(target_image)
 
-    if source_face is None:
+    if source_face is None or target_face is None:
         print("One of the images does not contain a detectable face.")
         return None
     source_bbox = source_face.bbox.astype(int).tolist()
-    
     print(":::::bbox::::::", source_bbox)
 
     cropped_source_face = crop_face_bbox(source_image, source_face)
-    
-    cropped_target_face_1 = crop_face_bbox(target_image_1, target_face_1)    
-    cropped_source_face_2 = crop_face_bbox(target_image_2, target_face_2)
-    cropped_source_face_3 = crop_face_bbox(target_image_3, target_face_3)
-    cropped_source_face_4 = crop_face_bbox(target_image_4, target_face_4)
+    cropped_target_face = crop_face_bbox(target_image, target_face)
 
-    cv2.imwrite(os.path.join(os.path.dirname(__file__), './source_face.png'), cropped_source_face)
-    
-    cv2.imwrite(os.path.join(os.path.dirname(__file__), './target_face_1.png'), cropped_target_face_1)
-    cv2.imwrite(os.path.join(os.path.dirname(__file__), './target_face_2.png'), cropped_source_face_2)
-    cv2.imwrite(os.path.join(os.path.dirname(__file__), './target_face_3.png'), cropped_source_face_3)
-    cv2.imwrite(os.path.join(os.path.dirname(__file__), './target_face_4.png'), cropped_source_face_4)
+    cv2.imwrite(os.path.join(os.path.dirname(__file__), './source_face_one_target.png'), cropped_source_face)
+    cv2.imwrite(os.path.join(os.path.dirname(__file__), './target_face_one_target.png'), cropped_target_face)
     print("Cropped faces saved.")
 
     return source_bbox
@@ -295,12 +255,10 @@ def replace_blend_image(original_image: np.ndarray, cropped_image, coords):
 
 # main
 
-eps = float(sys.argv[1])
-
 device = "cuda"
-# eps = 0.32
+eps = 0.1
 epss = 0.5
-t_size = 2000
+t_size = 1500
 onnx_model_path = netArc_checkpoint = os.path.join(os.path.dirname(__file__), '../model/w600k_r50.onnx')
 onnx_model = onnx.load(onnx_model_path)
 det_size=(320, 320)
@@ -316,26 +274,17 @@ netArc = netArc_checkpoint
 netArc = netArc.to(device)
 netArc.eval()
 
-src_image_path = os.path.join(os.path.dirname(__file__), "image/sm5.png")
-target_image_path_1 = os.path.join(os.path.dirname(__file__), "image/sm1.png")
-target_image_path_2 = os.path.join(os.path.dirname(__file__), "image/sm2.png")
-target_image_path_3 = os.path.join(os.path.dirname(__file__), "image/sm3.png")
-target_image_path_4 = os.path.join(os.path.dirname(__file__), "image/sm4.png")
+src_image_path = os.path.join(os.path.dirname(__file__), "image/pm.png")
+target_image_path = os.path.join(os.path.dirname(__file__), "image/pm2.png")
 
-src_bbox = process_images(src_image_path, target_image_path_1, target_image_path_2, target_image_path_3, target_image_path_4)
+print(src_image_path, target_image_path)
 
-noised_img = generate_one(os.path.join(os.path.dirname(__file__), 'source_face.png'), 
-                          os.path.join(os.path.dirname(__file__), 'target_face_1.png'),
-                          os.path.join(os.path.dirname(__file__), 'target_face_2.png'),
-                          os.path.join(os.path.dirname(__file__), 'target_face_3.png'),
-                          os.path.join(os.path.dirname(__file__), 'target_face_4.png')) 
+src_bbox = process_images(src_image_path, target_image_path)
+
+noised_img = generate_one(os.path.join(os.path.dirname(__file__), 'source_face_one_target.png'), os.path.join(os.path.dirname(__file__), 'target_face_one_target.png'))
 
 original_img = cv2.imread(src_image_path)
-final_image = replace_blend_image(original_img, noised_img, src_bbox)
+final_image = replace_image(original_img, noised_img, src_bbox)
 
-# cv2.imwrite(os.path.join(os.path.dirname(__file__), "final_image.png"), final_image)
-
-image_dir = "/home/user/bob/fakeguard/analysis_result/sm"
-cv2.imwrite(os.path.join(image_dir, ("eps_"+str(round(eps,2))+".png")), final_image)
-
+cv2.imwrite(os.path.join(os.path.dirname(__file__), "final_image_one_target_0.16.png"), final_image)
 print("Image processing completed!")

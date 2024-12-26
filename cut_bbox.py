@@ -46,10 +46,10 @@ def process_images(source_img_path, target_img_path):
     cropped_target_face = aligner.crop_face_bbox(target_image, target_face)
 
     # 이미지 저장
-    cv2.imwrite("source_face.png", cropped_source_face)
-    cv2.imwrite("target_face.png", cropped_target_face)
+    cv2.imwrite("analysis_result/face_eps_0.08.png", cropped_source_face)
+    cv2.imwrite("analysis_result/face_eps_0.1.png", cropped_target_face)
     print("Cropped faces saved.")
 
 if __name__ == "__main__":
     # 소스와 타겟 이미지 경로를 입력
-    process_images("image/original.png", "../anime_seong.png")
+    process_images("analysis_result/eps_0.08.png", "analysis_result/eps_0.1.png")

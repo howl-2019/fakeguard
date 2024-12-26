@@ -13,9 +13,13 @@ from insightface.app import FaceAnalysis
 import cv2
 import wandb
 from torch.optim.lr_scheduler import StepLR
-from torch import optim 
 
-import sys
+
+from torch import optim
+
+# tensorboard 벡터 기록
+# from torch.utils.tensorboard import SummaryWriter
+# import pandas as pd
 
 wandb.init(
     # set the wandb project where this run will be logged
@@ -29,6 +33,7 @@ wandb.init(
     "epochs": 10,
     }
 )
+
 
 def preprocess_image(image_path):
     image = Image.open(image_path).convert('RGB')
@@ -51,100 +56,73 @@ def tensor2img(cur_img):
     cur_img = Image.fromarray(cur_img.astype(np.uint8))
     return cur_img
 
-def generate_one(src_image_path, target_image_path_1, target_image_path_2, target_image_path_3, target_image_path_4):
-    # if not os.path.exists(src_image_path):
-    #     raise FileNotFoundError(f"Source image not found: {src_image_path}")
-    # if not os.path.exists(target_image_path):
-    #     raise FileNotFoundError(f"Target image not found: {target_image_path}")
+def generate_one(src_image_path, target_image_path, mask):
+    if not os.path.exists(src_image_path):
+        raise FileNotFoundError(f"Source image not found: {src_image_path}")
+    if not os.path.exists(target_image_path):
+        raise FileNotFoundError(f"Target image not found: {target_image_path}")
 
     source_tensor = preprocess_image(src_image_path)
-    target_tensor_1 = preprocess_image(target_image_path_1)
-    target_tensor_2 = preprocess_image(target_image_path_2)
-    target_tensor_3 = preprocess_image(target_image_path_3)
-    target_tensor_4 = preprocess_image(target_image_path_4)
+    target_tensor = preprocess_image(target_image_path)
 
     source_tensor = source_tensor.to(device)
-    target_tensor_1 = target_tensor_1.to(device)
-    target_tensor_2 = target_tensor_2.to(device)
-    target_tensor_3 = target_tensor_3.to(device)
-    target_tensor_4 = target_tensor_4.to(device)
+    target_tensor = target_tensor.to(device)
 
     with torch.no_grad():
-        target_auto_1 = torch_model(target_tensor_1)
-        target_auto_2 = torch_model(target_tensor_2)
-        target_auto_3 = torch_model(target_tensor_3)
-        target_auto_4 = torch_model(target_tensor_4)
-        target_gan_1 = netArc(target_tensor_1)
-        target_gan_2 = netArc(target_tensor_2)
-        target_gan_3 = netArc(target_tensor_3)
-        target_gan_4 = netArc(target_tensor_4)
+        target_auto = torch_model(target_tensor)
+        target_gan = netArc(target_tensor)
     
-    all_auto = torch.stack([
-    target_auto_1, target_auto_2, target_auto_3, target_auto_4
-])
-    all_gan = torch.stack([
-    target_gan_1, target_gan_2, target_gan_3, target_gan_4
-])
-    target_auto = torch.mean(all_auto, dim=0)
-    target_gan = torch.mean(all_gan, dim=0)
-    
-    # np.savetxt('target.txt', target_auto.numpy(), fmt='%f')
-    
-    # with torch.no_grad():
-    #     source_auto = torch_model(source_tensor)
-    #     source_gen = netArc(source_tensor)
-    
-    # modifier = torch.zeros_like(source_tensor, requires_grad=True)
-    modifier = torch.zeros_like(source_tensor[:, :1, :, :], requires_grad=True)
+    modifier = torch.zeros_like(source_tensor, requires_grad=True) # 색 있는 거 
+    # modifier = torch.zeros_like(source_tensor[:, :1, :, :], requires_grad=True)
     optimizer = optim.Adam([modifier], lr=0.01)
     # scheduler = StepLR(optimizer, step_size=100, gamma=0.1)
     
-    # max_change = eps / epss  # scale from 0,1 to -1,1
-    max_change = eps
+    max_change = eps / epss #0.5  # scale from 0,1 to -1,1
     step_size = max_change
 
     for i in range(t_size):
         # actual_step_size = step_size - (step_size - step_size / 100) / t_size * i
-        adv_tensor = torch.clamp(modifier + source_tensor, -1, 1)
-        # adv_tensor = modifier + source_tensor # adv, modifier connect
+        
+        adv_tensor = torch.clamp(modifier + source_tensor, -1, 1) # adv, modifier connect
+        # adv_tensor = torch.clamp(modifier * mask + source_tensor, -1, 1) # adv, modifier connect
+
         adv_tensor = adv_tensor.to(device)
         adv_auto = torch_model(adv_tensor)
         adv_gan = netArc(adv_tensor)
         
-        uc_dis_auto = (adv_auto - target_auto).norm()
+        uc_distance_auto = (adv_auto - target_auto).norm()
         dual_dis_auto = 0.5 * torch.abs(adv_auto - target_auto).sum() + 0.5 * torch.norm(adv_auto - target_auto)
         mse_loss_auto = torch.nn.functional.mse_loss(adv_auto, target_auto)
         cosine_loss_auto = 1 - torch.nn.functional.cosine_similarity(adv_auto, target_auto, dim=0).mean()
         
-        uc_dis_gan = (adv_gan - target_gan).norm()
+        uc_distance_gan = (adv_gan - target_gan).norm()
         dual_dis_gan = 0.5 * torch.abs(adv_gan - target_gan).sum() + 0.5 * torch.norm(adv_gan - target_gan) 
         mse_loss_gan = torch.nn.functional.mse_loss(adv_gan, target_gan)
         cosine_loss_gan = 1 - torch.nn.functional.cosine_similarity(adv_gan, target_gan, dim=0).mean()
         
+        
         loss_auto = dual_dis_auto + mse_loss_auto
-        loss_gan = dual_dis_gan + 2 * mse_loss_gan
-        loss = -(loss_auto + 2 * loss_gan)
-        # loss = -loss_gan
+        loss_gan = dual_dis_gan + mse_loss_gan
+        # loss = -(loss_auto + loss_gan)
+        loss = (loss_auto + loss_gan)
 
-        wandb.log({"distance_auto": dual_dis_auto,"mse_auto": mse_loss_auto, 
-                   "distance_gan": dual_dis_gan, "mse_gan": mse_loss_gan,
-                   "Loss": loss})
+        wandb.log({"loss": loss, "L2_distance_auto": uc_distance_auto, "cosine_auto": cosine_loss_auto, "mse_loss": mse_loss_auto , "L2_distance_gan": uc_distance_gan, "cosine_gan": cosine_loss_gan, "mse_gan": mse_loss_gan})
         
         optimizer.zero_grad()
         loss.backward()
         # torch.nn.utils.clip_grad_norm_(list(torch_model.parameters()) + list(netArc.parameters()), max_norm=1.0)
+        
         optimizer.step()
         # scheduler.step()
         modifier.data.clamp_(-max_change, max_change)
         
-        
+
         if i % 50 == 0:
             print(f"# Iter: {i}\tLoss: {loss.mean().item():.3f}")
 
             # iter_img = tensor2img(modifier + source_tensor)
             # iter_img.save(f"modifier_image_iter_{i}.png")
 
-            # Save the difference
             # diff = torch.abs(modifier)
             # diff_img = tensor2img(diff)
             # diff_img.save(f"modifier_diff_iter_{i}.png")
@@ -152,10 +130,10 @@ def generate_one(src_image_path, target_image_path_1, target_image_path_2, targe
     final_adv_batch = torch.clamp(modifier + source_tensor, -1.0, 1.0)
 
     final_img = tensor2img(final_adv_batch)
-    final_img.save("final_image.png")
+    final_img.save("final_image_sy8_dog.png")
 
     final_modifier_img = tensor2img(modifier + source_tensor)
-    final_modifier_img.save("modifier_image_final.png")
+    final_modifier_img.save("modifier_image_final_sy8_dog.png")
 
     # final_diff = torch.abs(modifier)
     # final_diff_img = tensor2img(final_diff)
@@ -184,44 +162,83 @@ def crop_face_bbox(image, face):
 
     return cropped_face
 
-def process_images(source_img_path, target_img_path_1, target_img_path_2, target_img_path_3, target_img_path_4):
+def facial_feature_mask(face, mask_shape):
+
+    landmarks = face.kps  # Facial landmarks (left_eye, right_eye, nose, mouth)
+    x_min, y_min, x_max, y_max = face.bbox
+    bbox_width = x_max - x_min
+    bbox_height = y_max - y_min
+    height, width = 112, 112
+
+    normalized_landmarks = [
+        ( (coord[0] - x_min) / bbox_width * 112,
+        (coord[1] - y_min) / bbox_height * 112 )
+        for coord in landmarks
+    ]
+
+    # Initialize an empty mask
+    mask = torch.zeros((height, width))
+
+    # Define regions for eyes, nose, and mouth
+    # Eyes
+    for eye in normalized_landmarks[:2]:
+        eye_x, eye_y = eye
+        mask[
+            int(eye_y - 11):int(eye_y + 11),
+            int(eye_x - 17):int(eye_x + 17)
+        ] = 1
+
+    # Nose
+    nose_x, nose_y = normalized_landmarks[2]
+    mask[
+        int(nose_y - 17):int(nose_y + 17),
+        int(nose_x - 11):int(nose_x + 11)
+    ] = 1
+
+    # Mouth
+    left_mouth_x, left_mouth_y = normalized_landmarks[3]
+    right_mouth_x, right_mouth_y = normalized_landmarks[4]
+    mouth_center_y = (left_mouth_y + right_mouth_y) / 2
+    mask[
+        int(mouth_center_y - 11):int(mouth_center_y + 17),
+        int(left_mouth_x - 11):int(right_mouth_x + 11)
+    ] = 1
+
+    assert mask.max() <= 1 and mask.min() >= 0, "Mask should contain only 0 and 1."
+
+    # mask = mask.numpy()
+
+    # if len(mask.shape) == 2:  # If mask is single-channel
+    #     mask = np.repeat(mask[:, :, np.newaxis], 3, axis=2)  # Expand to 3 channels
+
+    mask = mask.to(device)
+    return mask
+
+def process_images(source_img_path, target_img_path):
     source_image = cv2.imread(source_img_path)
-    
-    target_image_1 = cv2.imread(target_img_path_1)
-    target_image_2 = cv2.imread(target_img_path_2)
-    target_image_3 = cv2.imread(target_img_path_3)
-    target_image_4 = cv2.imread(target_img_path_4)
+    target_image = cv2.imread(target_img_path)
 
     source_face = get_face_bbox(source_image)
-    
-    target_face_2 = get_face_bbox(target_image_2)
-    target_face_3 = get_face_bbox(target_image_3)
-    target_face_4 = get_face_bbox(target_image_4)
-    target_face_1 = get_face_bbox(target_image_1)
+    target_face = get_face_bbox(target_image)
 
-    if source_face is None:
+    if source_face is None or target_face is None:
         print("One of the images does not contain a detectable face.")
         return None
     source_bbox = source_face.bbox.astype(int).tolist()
-    
     print(":::::bbox::::::", source_bbox)
 
     cropped_source_face = crop_face_bbox(source_image, source_face)
-    
-    cropped_target_face_1 = crop_face_bbox(target_image_1, target_face_1)    
-    cropped_source_face_2 = crop_face_bbox(target_image_2, target_face_2)
-    cropped_source_face_3 = crop_face_bbox(target_image_3, target_face_3)
-    cropped_source_face_4 = crop_face_bbox(target_image_4, target_face_4)
+    cropped_target_face = crop_face_bbox(target_image, target_face)
 
-    cv2.imwrite(os.path.join(os.path.dirname(__file__), './source_face.png'), cropped_source_face)
-    
-    cv2.imwrite(os.path.join(os.path.dirname(__file__), './target_face_1.png'), cropped_target_face_1)
-    cv2.imwrite(os.path.join(os.path.dirname(__file__), './target_face_2.png'), cropped_source_face_2)
-    cv2.imwrite(os.path.join(os.path.dirname(__file__), './target_face_3.png'), cropped_source_face_3)
-    cv2.imwrite(os.path.join(os.path.dirname(__file__), './target_face_4.png'), cropped_source_face_4)
+    cv2.imwrite(os.path.join(os.path.dirname(__file__), './source_face_sy8.png'), cropped_source_face)
+    cv2.imwrite(os.path.join(os.path.dirname(__file__), './target_face_dog.png'), cropped_target_face)
     print("Cropped faces saved.")
 
-    return source_bbox
+    # 마스크 생성
+    mask_shape = cropped_source_face.shape[:2]
+    src_mask = facial_feature_mask(source_face, mask_shape)
+
+    return source_bbox, src_mask
 
 def replace_image(original_image: np.ndarray, cropped_image, coords):
     # 좌표 가져오기
@@ -238,7 +255,7 @@ def replace_image(original_image: np.ndarray, cropped_image, coords):
 
     # 원본 이미지에 다시 삽입
     original_image[y1:y2, x1:x2] = resized_cropped_image
-    cv2.imwrite("output\\resized_image.png", resized_cropped_image)
+    cv2.imwrite("output/resized_image_pm10.png", resized_cropped_image)
 
     return original_image
 
@@ -284,7 +301,7 @@ def replace_blend_image(original_image: np.ndarray, cropped_image, coords):
     if resized_cropped_image.shape[:2] == (target_height, target_width):
         blended_image = (resized_cropped_image * mask + original_image[y1:y2, x1:x2] * (1 - mask)).astype(
             original_image.dtype)
-        cv2.imwrite("output\\blended_image.png", blended_image)
+        cv2.imwrite("output/blended_image_pm10.png", blended_image)
         original_image[y1:y2, x1:x2] = blended_image
     else:
         print("Error: Resized cropped image dimensions do not match target dimensions.")
@@ -295,13 +312,12 @@ def replace_blend_image(original_image: np.ndarray, cropped_image, coords):
 
 # main
 
-eps = float(sys.argv[1])
-
 device = "cuda"
-# eps = 0.32
+eps = 1
 epss = 0.5
-t_size = 2000
+t_size = 300
 onnx_model_path = netArc_checkpoint = os.path.join(os.path.dirname(__file__), '../model/w600k_r50.onnx')
+
 onnx_model = onnx.load(onnx_model_path)
 det_size=(320, 320)
 face_analyser = get_face_analyser(det_size)
@@ -316,26 +332,40 @@ netArc = netArc_checkpoint
 netArc = netArc.to(device)
 netArc.eval()
 
-src_image_path = os.path.join(os.path.dirname(__file__), "image/sm5.png")
-target_image_path_1 = os.path.join(os.path.dirname(__file__), "image/sm1.png")
-target_image_path_2 = os.path.join(os.path.dirname(__file__), "image/sm2.png")
-target_image_path_3 = os.path.join(os.path.dirname(__file__), "image/sm3.png")
-target_image_path_4 = os.path.join(os.path.dirname(__file__), "image/sm4.png")
 
-src_bbox = process_images(src_image_path, target_image_path_1, target_image_path_2, target_image_path_3, target_image_path_4)
+for param in torch_model.parameters():
+    print("torch_model is on device:", param.device)
+    break  # 첫 번째 파라미터만 확인
 
-noised_img = generate_one(os.path.join(os.path.dirname(__file__), 'source_face.png'), 
-                          os.path.join(os.path.dirname(__file__), 'target_face_1.png'),
-                          os.path.join(os.path.dirname(__file__), 'target_face_2.png'),
-                          os.path.join(os.path.dirname(__file__), 'target_face_3.png'),
-                          os.path.join(os.path.dirname(__file__), 'target_face_4.png')) 
+# netArc의 첫 번째 파라미터의 장치를 확인
+for param in netArc.parameters():
+    print("netArc is on device:", param.device)
+    break  # 첫 번째 파라미터만 확인
+
+if torch.cuda.is_available():
+    current_device = torch.cuda.current_device()
+    print(f"Current GPU device: {current_device}")
+    print(f"GPU device name: {torch.cuda.get_device_name(current_device)}")
+else:
+    print("CUDA is not available.")
+
+src_image_path = os.path.join(os.path.dirname(__file__), "image/go1.jpg")
+target_image_path = os.path.join(os.path.dirname(__file__), "image/go3.jpg")
+
+src_bbox, src_mask = process_images(src_image_path, target_image_path)
+
+# 이목구비만 남길 마스크 생성
+# src_mask = facial_feature_mask(get_face_bbox(cv2.imread(src_image_path)))
+
+noised_img = generate_one(os.path.join(os.path.dirname(__file__), 'source_face_sy8.png'), 
+                          os.path.join(os.path.dirname(__file__), 'target_face_dog.png'),
+                          src_mask)
 
 original_img = cv2.imread(src_image_path)
 final_image = replace_blend_image(original_img, noised_img, src_bbox)
 
-# cv2.imwrite(os.path.join(os.path.dirname(__file__), "final_image.png"), final_image)
-
-image_dir = "/home/user/bob/fakeguard/analysis_result/sm"
-cv2.imwrite(os.path.join(image_dir, ("eps_"+str(round(eps,2))+".png")), final_image)
-
+cv2.imwrite(os.path.join(os.path.dirname(__file__), "final_image_sy8_dog.png"), final_image)
 print("Image processing completed!")
+
+
+

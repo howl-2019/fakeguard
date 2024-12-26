@@ -14,6 +14,7 @@ import cv2
 import wandb
 from torch.optim.lr_scheduler import StepLR
 from torch import optim 
+from itertools import permutations
 
 import sys
 
@@ -51,7 +52,7 @@ def tensor2img(cur_img):
     cur_img = Image.fromarray(cur_img.astype(np.uint8))
     return cur_img
 
-def generate_one(src_image_path, target_image_path_1, target_image_path_2, target_image_path_3, target_image_path_4):
+def generate_one(src_image_path, target_image_path_1, target_image_path_2, target_image_path_3, target_image_path_4, w_1, w_2, w_3):
     # if not os.path.exists(src_image_path):
     #     raise FileNotFoundError(f"Source image not found: {src_image_path}")
     # if not os.path.exists(target_image_path):
@@ -111,24 +112,24 @@ def generate_one(src_image_path, target_image_path_1, target_image_path_2, targe
         adv_auto = torch_model(adv_tensor)
         adv_gan = netArc(adv_tensor)
         
-        uc_dis_auto = (adv_auto - target_auto).norm()
-        dual_dis_auto = 0.5 * torch.abs(adv_auto - target_auto).sum() + 0.5 * torch.norm(adv_auto - target_auto)
+        l1_dis_auto = torch.abs(adv_auto - target_auto).sum()
+        l2_dis_auto = torch.norm(adv_auto - target_auto)
+        dual_dis_auto = w_1 * torch.abs(adv_auto - target_auto).sum() + w_2 * torch.norm(adv_auto - target_auto)
         mse_loss_auto = torch.nn.functional.mse_loss(adv_auto, target_auto)
-        cosine_loss_auto = 1 - torch.nn.functional.cosine_similarity(adv_auto, target_auto, dim=0).mean()
         
-        uc_dis_gan = (adv_gan - target_gan).norm()
-        dual_dis_gan = 0.5 * torch.abs(adv_gan - target_gan).sum() + 0.5 * torch.norm(adv_gan - target_gan) 
+        l1_dis_gan = torch.abs(adv_gan - target_gan).sum()
+        l2_dis_gan = torch.norm(adv_gan - target_gan)
+        dual_dis_gan = w_1 * torch.abs(adv_gan - target_gan).sum() + w_2 * torch.norm(adv_gan - target_gan) 
         mse_loss_gan = torch.nn.functional.mse_loss(adv_gan, target_gan)
-        cosine_loss_gan = 1 - torch.nn.functional.cosine_similarity(adv_gan, target_gan, dim=0).mean()
         
-        loss_auto = dual_dis_auto + mse_loss_auto
-        loss_gan = dual_dis_gan + 2 * mse_loss_gan
-        loss = -(loss_auto + 2 * loss_gan)
+        loss_auto = w_1*l1_dis_auto + w_2*l2_dis_auto + w_3*mse_loss_auto
+        loss_gan = w_1*l1_dis_gan + w_2*l2_dis_gan + w_3 * mse_loss_gan
+        loss = -(loss_auto + w_3 * loss_gan)
         # loss = -loss_gan
 
-        wandb.log({"distance_auto": dual_dis_auto,"mse_auto": mse_loss_auto, 
-                   "distance_gan": dual_dis_gan, "mse_gan": mse_loss_gan,
-                   "Loss": loss})
+        # wandb.log({"distance_auto": dual_dis_auto,"mse_auto": mse_loss_auto, 
+        #            "distance_gan": dual_dis_gan, "mse_gan": mse_loss_gan,
+        #            "Loss": loss})
         
         optimizer.zero_grad()
         loss.backward()
@@ -138,8 +139,8 @@ def generate_one(src_image_path, target_image_path_1, target_image_path_2, targe
         modifier.data.clamp_(-max_change, max_change)
         
         
-        if i % 50 == 0:
-            print(f"# Iter: {i}\tLoss: {loss.mean().item():.3f}")
+        # if i % 50 == 0:
+        #     print(f"# Iter: {i}\tLoss: {loss.mean().item():.3f}")
 
             # iter_img = tensor2img(modifier + source_tensor)
             # iter_img.save(f"modifier_image_iter_{i}.png")
@@ -148,7 +149,9 @@ def generate_one(src_image_path, target_image_path_1, target_image_path_2, targe
             # diff = torch.abs(modifier)
             # diff_img = tensor2img(diff)
             # diff_img.save(f"modifier_diff_iter_{i}.png")
-
+    print(f"# Iter: {i}\tLoss: {loss.mean().item():.3f}")
+    print(f"auto {l1_dis_auto.mean().item():.3f}, {l2_dis_auto.mean().item():.3f}, {mse_loss_auto.mean().item():.3f}, {w_1}, {w_2}, {w_3}")
+    print(f"gan {l1_dis_gan.mean().item():.3f}, {l2_dis_gan.mean().item():.3f}, {mse_loss_gan.mean().item():.3f}")
     final_adv_batch = torch.clamp(modifier + source_tensor, -1.0, 1.0)
 
     final_img = tensor2img(final_adv_batch)
@@ -160,7 +163,7 @@ def generate_one(src_image_path, target_image_path_1, target_image_path_2, targe
     # final_diff = torch.abs(modifier)
     # final_diff_img = tensor2img(final_diff)
     # final_diff_img.save("modifier_diff_final.png")
-    wandb.finish()
+    # wandb.finish()
     # np.savetxt('adv_latent.txt', adv_latent.detach().cpu().numpy(), fmt='%f')
     return final_img
     
@@ -295,12 +298,9 @@ def replace_blend_image(original_image: np.ndarray, cropped_image, coords):
 
 # main
 
-eps = float(sys.argv[1])
-
 device = "cuda"
-# eps = 0.32
-epss = 0.5
-t_size = 2000
+eps = 0.1
+t_size = 1000
 onnx_model_path = netArc_checkpoint = os.path.join(os.path.dirname(__file__), '../model/w600k_r50.onnx')
 onnx_model = onnx.load(onnx_model_path)
 det_size=(320, 320)
@@ -316,26 +316,35 @@ netArc = netArc_checkpoint
 netArc = netArc.to(device)
 netArc.eval()
 
-src_image_path = os.path.join(os.path.dirname(__file__), "image/sm5.png")
-target_image_path_1 = os.path.join(os.path.dirname(__file__), "image/sm1.png")
-target_image_path_2 = os.path.join(os.path.dirname(__file__), "image/sm2.png")
-target_image_path_3 = os.path.join(os.path.dirname(__file__), "image/sm3.png")
-target_image_path_4 = os.path.join(os.path.dirname(__file__), "image/sm4.png")
+src_image_path = os.path.join(os.path.dirname(__file__), "image/jw3.png")
+target_image_path_1 = os.path.join(os.path.dirname(__file__), "image/jw1.png")
+target_image_path_2 = os.path.join(os.path.dirname(__file__), "image/jw2.png")
+target_image_path_3 = os.path.join(os.path.dirname(__file__), "image/jw4.png")
+target_image_path_4 = os.path.join(os.path.dirname(__file__), "image/jw5.png")
 
 src_bbox = process_images(src_image_path, target_image_path_1, target_image_path_2, target_image_path_3, target_image_path_4)
+w_pool = [0.1, 0.5, 1.0]
+# for i, j, k in permutations(w_pool, 3):
+#     noised_img = generate_one(os.path.join(os.path.dirname(__file__), 'source_face.png'), 
+#                             os.path.join(os.path.dirname(__file__), 'target_face_1.png'),
+#                             os.path.join(os.path.dirname(__file__), 'target_face_2.png'),
+#                             os.path.join(os.path.dirname(__file__), 'target_face_3.png'),
+#                             os.path.join(os.path.dirname(__file__), 'target_face_4.png'),
+#                             i, j, k) 
 
 noised_img = generate_one(os.path.join(os.path.dirname(__file__), 'source_face.png'), 
-                          os.path.join(os.path.dirname(__file__), 'target_face_1.png'),
-                          os.path.join(os.path.dirname(__file__), 'target_face_2.png'),
-                          os.path.join(os.path.dirname(__file__), 'target_face_3.png'),
-                          os.path.join(os.path.dirname(__file__), 'target_face_4.png')) 
+                        os.path.join(os.path.dirname(__file__), 'target_face_1.png'),
+                        os.path.join(os.path.dirname(__file__), 'target_face_2.png'),
+                        os.path.join(os.path.dirname(__file__), 'target_face_3.png'),
+                        os.path.join(os.path.dirname(__file__), 'target_face_4.png'),
+                        0.3, 0.3, 1.0) 
 
 original_img = cv2.imread(src_image_path)
 final_image = replace_blend_image(original_img, noised_img, src_bbox)
 
 # cv2.imwrite(os.path.join(os.path.dirname(__file__), "final_image.png"), final_image)
 
-image_dir = "/home/user/bob/fakeguard/analysis_result/sm"
+image_dir = "/home/user/bob/fakeguard/analysis_result/greed"
 cv2.imwrite(os.path.join(image_dir, ("eps_"+str(round(eps,2))+".png")), final_image)
 
 print("Image processing completed!")
